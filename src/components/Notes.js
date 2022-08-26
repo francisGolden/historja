@@ -185,7 +185,7 @@ const Notes = () => {
 
             </div>
 
-            <button className="" type="submit">Create event</button>
+            <button className="bg-slate-100 p-2" type="submit">Create event</button>
 
         </form>
 

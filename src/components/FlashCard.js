@@ -2,8 +2,6 @@ import { useContext, useState, useEffect } from "react";
 import { NoteContext } from "../context/NoteContext";
 import { db } from "../firebase";
 
-import {BsFillPlayFill} from "react-icons/bs"
-
 import { onSnapshot, collection, query } from "firebase/firestore";
 
 
@@ -139,13 +137,12 @@ const FlashCard = () => {
 
             <div className="flex flex-col text-center rounded-xl 
             justify-start items-center
-             bg-slate-500/50 w-full border-8 border-black p-3 h-5/6">
+             bg-slate-500/50 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 border-8 border-black p-3 h-5/6">
 
                 {playing === false ? (<h2 className="text-3xl p-3">Select the event <br></br>and press <b>PLAY</b></h2>):
                 <p className="font-bold mb-3 text-3xl p-3">{what.toUpperCase()}</p>
                 }
                 
-
                 <div className="flex flex-col border-4 border-black 
                 flex-1 bg-yellow-200/50 w-[100%] 
                 justify-center items-center">
@@ -159,7 +156,7 @@ const FlashCard = () => {
                         return (
 
                                 <div onClick={selectCard} className="flex items-center justify-center flex-1 w-full
-                                bg-gradient-to-r from-blue-400/80 to-blue-500/90" key={note.id}
+                                bg-blue-500/80 hover:bg-blue-500/70" key={note.id}
                                     id={note.id}>
                                     <p onClick={selectCard} id={note.id}>{note.event}</p>
                                     

@@ -54,14 +54,14 @@ const NavBar = () => {
                         </Link>
                     </button>
 
-                    <button>
+                    {/* <button>
                         <Link 
                         className="flex items-center gap-1" 
                         to="/edit">
                             Edit event
                             <IoIosCreate color="white" size={28}/>
                         </Link>
-                    </button>
+                    </button> */}
 
                     <button>
                         <Link 

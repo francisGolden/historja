@@ -148,7 +148,7 @@ const EditNote = () => {
                 if (note.id === toEdit) 
                 return (
                     <form onSubmit={handleSubmit} id={note.id} 
-                    className="flex flex-col gap-5 p-3" key={note.id}>
+                    className="flex m-1 flex-col gap-2 w-full md:w-1/2 bg-slate-200 p-2" key={note.id}>
 
                         {/* <label htmlFor="title" >Title</label>
                         <input className="bg-slate-100/60" type="text" value={newTitle}
@@ -160,7 +160,7 @@ const EditNote = () => {
                         onChange={(e) => setNewContent(e.target.value)}
                         name="content" /> */}
                         
-                        <div className="flex flex-col gap-2 w-full p-2 bg-slate-400/30">
+                        <div className="flex flex-col w-full gap-2 p-2 bg-slate-400/30">
                             <h1>Section 1</h1>
                             <div className="flex flex-col">
                                 <label className="font-bold" htmlFor="event">Event</label>
@@ -172,7 +172,7 @@ const EditNote = () => {
 
 
 
-                        <div className="flex flex-col gap-2 w-full p-2 bg-slate-400/30">
+                        <div className="flex flex-col gap-2 p-2 bg-slate-400/30">
                             <h1>Section 2</h1>
                             <div className="flex flex-col">
                                 <label className="font-bold" htmlFor="where">Where</label>
@@ -198,7 +198,7 @@ const EditNote = () => {
                         </div>
 
 
-                        <div className="flex flex-col gap-2 w-full p-2 bg-slate-400/30">
+                        <div className="flex flex-col gap-2 p-2 bg-slate-400/30">
                             <div className="flex flex-col">
                                 <label className="font-bold" htmlFor="beginning">Beginning</label>
                                 <textarea className="bg-slate-100/80 p-1" type="text" value={newBeginning}
@@ -257,10 +257,10 @@ const EditNote = () => {
 
     return (
         <div className="flex flex-col justify-center bg-peirson bg-no-repeat 
-        bg-cover bg-blend-soft-light p-2 flex-1
+        bg-cover bg-blend-soft-light p-2 flex-1 items-center
         text-2xl bg-slate-300 gap-5">
             {loading ? <FaSpinner className="animate-spin" size={46}/> : 
-            <div className="flex m-1 flex-col gap-2 bg-slate-200 p-2">
+            <div className="flex m-1 flex-col gap-2 w-full md:w-1/2 bg-slate-200 p-2">
                 <div className="font-bold">Select the event you wish to edit</div>
                 {notes.map((note)=>{
                     return (

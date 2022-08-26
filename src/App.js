@@ -18,7 +18,7 @@ function App() {
   return (
     <NoteProvider>
       <AuthContextProvider>
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen text-slate-800">
           <NavBar />
           <Routes>
             <Route path="/" element={<SignIn />} />

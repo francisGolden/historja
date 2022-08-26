@@ -26,6 +26,7 @@ const EditNote = () => {
     const [newUnfold, setNewUnfold] = useState("");
     const [newEnd, setNewEnd] = useState("");
     const [newSource, setNewSource] = useState("");
+    const [newTag, setNewTag] = useState("")
 
     const [toEdit, setToEdit] = useState("")
 
@@ -69,6 +70,7 @@ const EditNote = () => {
                 setNewUnfold(note.unfold)
                 setNewEnd(note.end)
                 setNewSource(note.source)
+                setNewTag(note.tag)
             }
         })
 
@@ -77,6 +79,17 @@ const EditNote = () => {
     const handleDelete = async(id) => {
         await deleteDoc(doc(db, "notes", id))
     }
+
+    // const capitalize = (text) => {
+        
+    //     let split = text.split("")
+    //     split[0] = split[0].toUpperCase()
+
+    //     const str = split.join("")
+
+    //     return str
+        
+    // }
 
     // this function makes it so that changes to newTitle and newContent
     // states are reflected on the original notes state
@@ -94,7 +107,8 @@ const EditNote = () => {
                     beginning: newBeginning,
                     unfold: newUnfold,
                     end: newEnd,
-                    source: newSource
+                    source: newSource,
+                    tag: newTag
                 }
             }
         }))
@@ -118,6 +132,7 @@ const EditNote = () => {
             beginning: newBeginning,
             unfold: newUnfold,
             end: newEnd,
+            tag: newTag,
             source: newSource
         })
 
@@ -133,7 +148,7 @@ const EditNote = () => {
                 if (note.id === toEdit) 
                 return (
                     <form onSubmit={handleSubmit} id={note.id} 
-                    className="flex flex-col items-center gap-3 text-2xl" key={note.id}>
+                    className="flex flex-col gap-5 p-3" key={note.id}>
 
                         {/* <label htmlFor="title" >Title</label>
                         <input className="bg-slate-100/60" type="text" value={newTitle}
@@ -145,11 +160,11 @@ const EditNote = () => {
                         onChange={(e) => setNewContent(e.target.value)}
                         name="content" /> */}
                         
-                        <div className="border-black">
+                        <div className="flex flex-col gap-2 w-full p-2 bg-slate-400/30">
                             <h1>Section 1</h1>
                             <div className="flex flex-col">
-                                <label className="font-bold" htmlFor="event">event</label>
-                                <textarea className="bg-slate-100/60 min-w-[400px]" type="text" value={newEvent}
+                                <label className="font-bold" htmlFor="event">Event</label>
+                                <textarea className="bg-slate-100/80 p-1" type="text" value={newEvent}
                                 onChange={(e) => setNewEvent(e.target.value)}
                                 name="event" />
                             </div>
@@ -157,53 +172,67 @@ const EditNote = () => {
 
 
 
-                        <div className="flex flex-col">
-                            <label className="font-bold" htmlFor="where">where</label>
-                            <textarea className="bg-slate-100/60 min-w-[400px]" type="text" value={newWhere}
-                            onChange={(e) => setNewWhere(e.target.value)}
-                            name="where" />
+                        <div className="flex flex-col gap-2 w-full p-2 bg-slate-400/30">
+                            <h1>Section 2</h1>
+                            <div className="flex flex-col">
+                                <label className="font-bold" htmlFor="where">Where</label>
+                                <textarea className="bg-slate-100/80 p-1" type="text" value={newWhere}
+                                onChange={(e) => setNewWhere(e.target.value)}
+                                name="where" />
+                            </div>
+
+                            <div className="flex flex-col">
+                                <label className="font-bold" htmlFor="when">When</label>
+                                <textarea className="bg-slate-100/80 p-1" type="text" value={newWhen}
+                                onChange={(e) => setNewWhen(e.target.value)}
+                                name="when" />
+                            </div>
+
+                            <div className="flex flex-col">
+                                <label className="font-bold" htmlFor="who">Who</label>
+                                <textarea className="bg-slate-100/80 p-1" type="text" value={newWho}
+                                onChange={(e) => setNewWho(e.target.value)}
+                                name="who" />
+                            </div>
+
+                        </div>
+
+
+                        <div className="flex flex-col gap-2 w-full p-2 bg-slate-400/30">
+                            <div className="flex flex-col">
+                                <label className="font-bold" htmlFor="beginning">Beginning</label>
+                                <textarea className="bg-slate-100/80 p-1" type="text" value={newBeginning}
+                                onChange={(e) => setNewBeginning(e.target.value)}
+                                name="beginning" />
+                            </div>
+
+                            <div className="flex flex-col">
+                                <label className="font-bold" htmlFor="unfold">Unfold</label>
+                                <textarea className="bg-slate-100/80 p-1" type="text" value={newUnfold}
+                                onChange={(e) => setNewUnfold(e.target.value)}
+                                name="unfold" />
+                            </div>
+
+                            <div className="flex flex-col">
+                                <label className="font-bold" htmlFor="end">End</label>
+                                <textarea className="bg-slate-100/80 p-1" type="text" value={newEnd}
+                                onChange={(e) => setNewEnd(e.target.value)}
+                                name="end" />
+                            </div>
                         </div>
 
                         <div className="flex flex-col">
-                            <label className="font-bold" htmlFor="when">when</label>
-                            <textarea className="bg-slate-100/60 min-w-[400px]" type="text" value={newWhen}
-                            onChange={(e) => setNewWhen(e.target.value)}
-                            name="when" />
-                        </div>
-
-                        <div className="flex flex-col">
-                            <label className="font-bold" htmlFor="who">who</label>
-                            <textarea className="bg-slate-100/60 min-w-[400px]" type="text" value={newWho}
-                            onChange={(e) => setNewWho(e.target.value)}
-                            name="who" />
-                        </div>
-
-                        <div className="flex flex-col">
-                            <label className="font-bold" htmlFor="beginning">beginning</label>
-                            <textarea className="bg-slate-100/60 min-w-[400px]" type="text" value={newBeginning}
-                            onChange={(e) => setNewBeginning(e.target.value)}
-                            name="beginning" />
-                        </div>
-
-                        <div className="flex flex-col">
-                            <label className="font-bold" htmlFor="unfold">unfold</label>
-                            <textarea className="bg-slate-100/60 min-w-[400px]" type="text" value={newUnfold}
-                            onChange={(e) => setNewUnfold(e.target.value)}
-                            name="unfold" />
-                        </div>
-
-                        <div className="flex flex-col">
-                            <label className="font-bold" htmlFor="end">end</label>
-                            <textarea className="bg-slate-100/60 min-w-[400px]" type="text" value={newEnd}
-                            onChange={(e) => setNewEnd(e.target.value)}
-                            name="end" />
-                        </div>
-
-                        <div className="flex flex-col">
-                            <label className="font-bold" htmlFor="source">source</label>
-                            <textarea className="bg-slate-100/60 min-w-[400px]" type="text" value={newSource}
+                            <label className="font-bold" htmlFor="source">Source</label>
+                            <textarea className="bg-slate-100/80 p-1" type="text" value={newSource}
                             onChange={(e) => setNewSource(e.target.value)}
                             name="source" />
+                        </div>
+
+                        <div className="flex flex-col">
+                            <label className="font-bold" htmlFor="tag">Tag</label>
+                            <textarea className="bg-slate-100/80 p-1" type="text" value={newTag}
+                            onChange={(e) => setNewTag(e.target.value)}
+                            name="tag" />
                         </div>
 
 
@@ -228,10 +257,10 @@ const EditNote = () => {
 
     return (
         <div className="flex flex-col justify-center bg-peirson bg-no-repeat 
-        bg-cover bg-blend-soft-light p-6
-        items-center flex-1 text-2xl bg-slate-300 gap-5">
+        bg-cover bg-blend-soft-light p-2 flex-1
+        text-2xl bg-slate-300 gap-5">
             {loading ? <FaSpinner className="animate-spin" size={46}/> : 
-            <div className="flex m-1 flex-col gap-2 bg-slate-200 p-3">
+            <div className="flex m-1 flex-col gap-2 bg-slate-200 p-2">
                 <div className="font-bold">Select the event you wish to edit</div>
                 {notes.map((note)=>{
                     return (

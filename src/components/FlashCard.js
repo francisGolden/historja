@@ -13,6 +13,8 @@ const FlashCard = () => {
     const [what, setWhat] = useState("");
     const [answer, setAnswer] = useState("");
 
+    const [playing, setPlaying] = useState(false)
+
     const [incremental, setIncremental] = useState(0)
     const [play, setPlay] = useState("")
 
@@ -68,19 +70,18 @@ const FlashCard = () => {
                 setAns("")
                 setQuestion("")
                 setPlay("PLAY")
+                setPlaying(true)
+
                 setToPlay(e.target.id)
 
-                console.log(note)
+                
             } else {
                 // alert("not enough filled fields")
                 // return false
-                console.log("note enough")
+                
                 return false
             }
         })
-        
-        
-
         
     }
 
@@ -92,7 +93,8 @@ const FlashCard = () => {
                     item !== "userid" && 
                     item !== "id" &&
                     item !== "content" &&
-                    item !== "event") {
+                    item !== "event" && 
+                    item !== "tag") {
                         arr = []
                         arr[0] = item;
                         arr[1] = note[item]
@@ -105,24 +107,21 @@ const FlashCard = () => {
             
         })
         
-        setAns("Click to show the answer")
+        setAns("Click here to show the answer")
+        setPlaying(true)
         setPlay("NEXT!")
-        console.log(arrContainer)
-
-        setQuestion(arrContainer[incremental][0] + "?")
-        setWhat(arrContainer[incremental][2])
-        setAnswer(arrContainer[incremental][1])
-
         
-        console.log(arrContainer[0])
-
-        if (incremental<6){
+        if (incremental<=6){
             setIncremental(incremental + 1)
-        } else {
+            setQuestion(arrContainer[incremental][0] + "?")
+            setWhat(arrContainer[incremental][2])
+            setAnswer(arrContainer[incremental][1])
+        } else if (incremental > 6) {
             setIncremental(0)
+            setQuestion("")
             setPlay("PLAY")
+            setPlaying(false)
         }
-        
         
     }
 
@@ -135,54 +134,50 @@ const FlashCard = () => {
     
     return (
         <div className="flex flex-col justify-center bg-cardsharps bg-no-repeat 
-        bg-cover bg-blend-soft-light p-6
+        bg-cover bg-blend-soft-light p-3
         items-center flex-1 text-2xl bg-slate-300 gap-5">
-
-            <h2 className="text-3xl">Select the event and press PLAY</h2>
-
-            {notes.map((note)=>{
-                return (
-                <div className="flex m-1 flex-col rounded text-slate-50 gap-2 
-                bg-gradient-to-l from-green-300/70 cursor-pointer
-                to-green-500/80 hover:animate-pulse p-3 w-[400px]" key={note.id}>
-
-                    <div onClick={selectCard} id={note.id} className="flex gap-2 cursor-pointer">
-                        <div onClick={selectCard} className="flex py-2 w-[fit-content] px-2  items-center" 
-                            id={note.id}>
-                            <p onClick={selectCard} id={note.id}>{note.event}</p>
-                            <BsFillPlayFill onClick={selectCard} id={note.id}/>
-                        </div>
-                    </div>
-
-                </div>
-                )
-            
-            })}
-
-            <button className="bg-slate-300 hover:bg-slate-200 
-            hover:animate-pulse
-            rounded px-3 text-5xl" onClick={playGame}>{play}</button>
 
             <div className="flex flex-col text-center rounded-xl 
             justify-start items-center
-             bg-slate-500/50 w-[400px] border-8 border-black p-3 h-[600px]">
+             bg-slate-500/50 w-full border-8 border-black p-3 h-5/6">
 
+                {playing === false ? (<h2 className="text-3xl p-3">Select the event <br></br>and press <b>PLAY</b></h2>):
+                <p className="font-bold mb-3 text-3xl p-3">{what.toUpperCase()}</p>
+                }
                 
 
-                <p className="font-bold mb-3 text-3xl">{what.toUpperCase()}</p>
                 <div className="flex flex-col border-4 border-black 
                 flex-1 bg-yellow-200/50 w-[100%] 
                 justify-center items-center">
 
-                    <p className="bg-gradient-to-r from-yellow-300/60
+                    
+                    {playing === false ? null : (<p className="bg-gradient-to-r from-yellow-300/60
                     to-yellow-500/60 
-                    py-5 text-4xl w-[100%]">{capitalize(question)}</p>
+                    py-5 text-4xl w-[100%]">{capitalize(question)} {playing === true ? `${incremental}/7` : null }</p>)}
 
-                    <div onClick={show} className="flex flex-col flex-1 cursor-pointer 
+                    {playing === false ? (notes.map((note)=>{
+                        return (
+
+                                <div onClick={selectCard} className="flex items-center justify-center flex-1 w-full
+                                bg-gradient-to-r from-blue-400/80 to-blue-500/90" key={note.id}
+                                    id={note.id}>
+                                    <p onClick={selectCard} id={note.id}>{note.event}</p>
+                                    
+                                </div>
+                        )
+                
+                    })):null}
+
+                    {playing === true ? (<div className="flex flex-col flex-1 cursor-pointer 
                     justify-center">
-                        <button >{ans}</button>
-                    </div>
+                        <button onClick={show}>{ans}</button>
 
+                    </div>):null}
+
+                    {playing === true ? (<button className="bg-green-300 hover:bg-green-300 
+                        animate-pulse mb-3
+                        rounded px-3 text-5xl" onClick={playGame}>{play}
+                    </button>) : null}
                 </div>
                 
             </div>

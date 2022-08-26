@@ -9,16 +9,16 @@ import { NoteProvider } from "./context/NoteContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import EditNote from "./components/EditNote";
 import FlashCard from "./components/FlashCard";
+import NoteList from "./components/NoteList";
 
 
 function App() {
 
-  console.log(process.env.REACT_APP_apiKey)
 
   return (
     <NoteProvider>
       <AuthContextProvider>
-        <div className="flex flex-col w-[100%] h-[100vh] text-slate-800 font-sans">
+        <div className="flex flex-col h-screen">
           <NavBar />
           <Routes>
             <Route path="/" element={<SignIn />} />
@@ -26,6 +26,9 @@ function App() {
             <Route path="/account" element={<ProtectedRoute>
               <Account />
               </ProtectedRoute>} />
+            <Route path="/notes" element={<ProtectedRoute>
+            <NoteList />
+            </ProtectedRoute>} />
             <Route path="/new" element={<ProtectedRoute>
               <Notes />
               </ProtectedRoute>} />

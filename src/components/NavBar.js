@@ -30,15 +30,26 @@ const NavBar = () => {
     // Only show the nav if the user is logged in
     if (nav === true) {
         return (
-        <div className="flex justify-between bg-gradient-to-bl
-        from-slate-300 to-slate-500 text-xl py-3 px-2">
-            <div className="flex gap-5 justify-start items-center">
+        <div className="shadow-md flex flex-col md:flex-row 
+        md:gap-10 gap-3 bg-blue-400 py-4 text-xl
+        justify-center items-center  text-gray-700">
+            <div className="flex gap-2 justify-start items-center">
 
                     <button>
                         <Link 
                         className="flex items-center gap-1" 
+                        to="/notes">
+                            My events
+                            <IoMdAlbums color="white" size={28}/>
+                        </Link>
+                    </button>
+                    
+                    
+                    <button>
+                        <Link 
+                        className="flex items-center gap-1" 
                         to="/new">
-                            Create events
+                            Create event
                             <IoMdAlbums color="white" size={28}/>
                         </Link>
                     </button>
@@ -47,7 +58,7 @@ const NavBar = () => {
                         <Link 
                         className="flex items-center gap-1" 
                         to="/edit">
-                            Edit events
+                            Edit event
                             <IoIosCreate color="white" size={28}/>
                         </Link>
                     </button>
@@ -56,7 +67,7 @@ const NavBar = () => {
                         <Link 
                         className="flex items-center gap-1" 
                         to="/flash">
-                            Flash cards
+                            Flash card
                             <GiCardExchange color="rgb(253 224 71)" size={28}/>
                         </Link>
                     </button>

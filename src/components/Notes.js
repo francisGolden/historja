@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { NoteContext } from "../context/NoteContext";
 
 import { UserAuth } from "../context/AuthContext";
-import {BsFillArrowDownCircleFill} from "react-icons/bs"
+import {BsFillArrowDownCircleFill, BsFillTagFill} from "react-icons/bs"
 
 
 const Notes = () => {
@@ -23,6 +23,7 @@ const Notes = () => {
     const [unfold, setUnfold] = useState("");
     const [end, setEnd] = useState("");
     const [source, setSource] = useState("");
+    const [tag, setTag] = useState("")
 
     const [loading, setLoading] = useState(false)
 
@@ -62,91 +63,81 @@ const Notes = () => {
             unfold: unfold,
             end: end,
             source: source,
+            tag: tag,
             userid: user.uid
         });
 
         setEvent("")
         setWhen("")
+        setWhere("")
         setWho("")
         setBeginning("")
         setUnfold("")
         setEnd("")
         setSource("")
+        setTag("")
 
 
     }
 
     return (
-        <div className="flex flex-col justify-start p-3 bg-issus bg-no-repeat 
-        bg-cover bg-blend-soft-light
-        items-center flex-1 bg-slate-300 gap-5">
-            {/* <h1 className="text-5xl drop-shadow-xl">Create a new historical event!</h1> */}
-            <form className="flex flex-col items-center gap-2 text-2xl" onSubmit={handleNew}>
 
-                <div className="flex flex-col gap-6 h-[100vh]">
-                    <h2 className="text-4xl mt-3">What is the event we are talking about?</h2>
-                    {/* <label className="font-bold" htmlFor="title">Title</label>
-                    <input className="bg-slate-100/60 min-w-[400px]" 
-                    onChange={(e)=>{setTitle(e.target.value)}} type="text" name="title" />
+            <form className="flex flex-col items-center 
+            gap-5 p-3 
+            text-2xl
+            bg-issus bg-cover bg-blend-soft-light bg-slate-300
+            " onSubmit={handleNew}>
 
-                    <label className="font-bold" htmlFor="content">Content</label>
-                    <input className="bg-slate-100/60 min-w-[400px]" 
-                    onChange={(e)=>{setContent(e.target.value)}} type="text" name="content" /> */}
+                <div className="flex flex-col gap-2 w-full p-2 bg-slate-400/30">
+                    <h2 className="">What is the event we are talking about?</h2>
                     
-                    <div className="flex flex-col text-4xl">
+                    <div className="flex flex-col">
                         <label className="font-bold" htmlFor="event">Event</label>
-                        <textarea className="bg-slate-100/60 min-w-[400px] 
-                        max-h-20 min-h-[100px] p-2" 
+                        <textarea className="bg-slate-100/80 p-1" 
                         placeholder="Battle of Waterloo" value={event} required
                         onChange={(e)=>{setEvent(e.target.value)}} type="text" name="event" />
                     </div>
                     
-
-                    
-                    <a href="#where">
+                    <a href="#where" className="hidden sm:block">
                         <BsFillArrowDownCircleFill size={42}/>
                     </a>
                 </div>
 
-                <div id="where" className="flex flex-col gap-6 w-[600px] h-[100vh]">
-                    <h2 className="text-4xl mt-3">What are the main points?</h2>
+                <div id="where" className="flex flex-col gap-2 w-full p-2 bg-slate-400/30">
+                    <h2 className="">What are the main points?</h2>
 
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="where">Where</label>
-                        <textarea className="bg-slate-100/60 
-                        max-h-20 min-h-[100px] p-2 min-w-[400px]"
+                        <textarea className="bg-slate-100/80 p-1"
                         placeholder="Waterloo" value={where} required
                         onChange={(e)=>{setWhere(e.target.value)}} type="text" name="where" />
                     </div>
                     
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="when">When</label>
-                        <textarea className="bg-slate-100/60 
-                        max-h-20 min-h-[100px] p-2 min-w-[400px]" 
+                        <textarea className="bg-slate-100/80 p-1" 
                         placeholder="1815" value={when} required
                         onChange={(e)=>{setWhen(e.target.value)}} type="text" name="when" />
                     </div>
 
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="who">Who</label>
-                        <textarea className="bg-slate-100/60 p-2 
-                        max-h-20 min-h-[100px] min-w-[400px]" value={who} required
+                        <textarea className="bg-slate-100/80 p-1" value={who} required
                         placeholder="Napoleon (France) vs UK, Prussia, Netherlands, Hanover, Nassau, Brunswick" 
                         onChange={(e)=>{setWho(e.target.value)}} type="text" name="who" />
                     </div>
 
-                    <a href="#evo">
+                    <a href="#evo" className="hidden sm:block">
                         <BsFillArrowDownCircleFill size={42}/>
                     </a>
                 </div>
 
-                <div id="evo" className="flex w-[600px] flex-col gap-6 h-[90vh]">
-                    <h2 className="text-4xl mt-3 w-[600px]">How did the event develop?</h2>
+                <div id="evo" className="flex flex-col gap-2 w-full p-2 bg-slate-400/30">
+                    <h2 className="">How did the event develop?</h2>
 
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="beginning">Beginning</label>
-                        <textarea className="bg-slate-100/60 p-2 
-                        max-h-[200px] min-h-[100px] min-w-[400px]"
+                        <textarea className="bg-slate-100/80 p-1"
                         placeholder="It started like this..." value={beginning}
                         onChange={(e)=>{setBeginning(e.target.value)}} type="text" name="beginning" />
                     </div>
@@ -154,51 +145,47 @@ const Notes = () => {
 
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="unfold">Unfold</label>
-                        <textarea className="bg-slate-100/60 p-2 
-                        max-h-[200px] min-h-[100px]  min-w-[400px]" 
+                        <textarea className="bg-slate-100/80 p-1" 
                         placeholder="It developed like that..."  value={unfold}
                         onChange={(e)=>{setUnfold(e.target.value)}} type="text" name="unfold" />
                     </div>
 
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="end">End</label>
-                        <textarea className="bg-slate-100/60 p-2 
-                        max-h-[200px] min-h-[100px]  min-w-[400px]"
+                        <textarea className="bg-slate-100/80 p-1"
                         placeholder="It ended like this..." value={end}
                         onChange={(e)=>{setEnd(e.target.value)}} type="text" name="end" />
                     </div>
 
-                    <a href="#end">
+                    <a href="#end" className="hidden sm:block">
                         <BsFillArrowDownCircleFill size={42}/>
                     </a>
                 </div>
 
                
-                <div id="end" className="flex w-[600px] flex-col h-[20vh] gap-6">
+                <div id="end" className="flex flex-col gap-2 w-full p-2 bg-slate-400/30">
 
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="source">Source</label>
-                        <textarea className="bg-slate-100/60 max-h-[150px] min-h-[100px]" 
+                        <textarea className="bg-slate-100/80 p-1" 
                         placeholder="Barbero, Alessandro (2013), The Battle: A New History of Waterloo, 
                         Atlantic Books, p. 160, ISBN 978-1-78239-138-8" value={source}
                         onChange={(e)=>{setSource(e.target.value)}} type="text" name="source" />
                     </div>
 
+                    <div className="flex flex-col">
+                        <label className="font-bold" htmlFor="tag">Tags</label>
+                        <textarea className="bg-slate-100/80 p-1" 
+                        placeholder="Vienna, Garibaldi, Early Modern, .." value={tag}
+                        onChange={(e)=>{setTag(e.target.value)}} type="text" name="tag" />
+                    </div>
+
                 </div>
 
-                <button className="text-3xl font-bold mb-6" type="submit">Create event</button>
+                <button className="" type="submit">Create event</button>
                
-            </form>
+            </form>         
 
-            
-            {/* <div className="flex flex-col justify-center items-center bg-red-100">                
-                <div className="px-4">You have {`${notes.length} note(s)`}</div>
-            </div> */}
-
-            
-            
-            
-        </div>
     )
 }
 

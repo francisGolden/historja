@@ -87,7 +87,7 @@ const Notes = () => {
             items-center flex-1 text-2xl bg-slate-300 gap-2
             " onSubmit={handleNew}>
 
-            <h1 className="text-6xl my-10 font-bold">Create a new event</h1>
+            <h1 className="text-6xl my-10 font-bold text-center">Create a new event</h1>
 
             <div className="flex flex-col w-full lg:w-1/2 gap-6">
                 <div className="flex flex-col gap-2 w-full p-2 bg-slate-200/70">

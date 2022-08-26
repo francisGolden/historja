@@ -82,7 +82,7 @@ const Notes = () => {
 
     return (
 
-        <form className="flex flex-col justify-start bg-trafalgar bg-no-repeat 
+        <form className="flex flex-col justify-start bg-wolfe bg-no-repeat 
             bg-cover p-3 
             items-center flex-1 text-2xl bg-slate-300 gap-2
             " onSubmit={handleNew}>

@@ -30,7 +30,7 @@ const SignIn = () => {
 
         try {
             await signIn(email, password)
-            navigate("/new")
+            navigate("/notes")
             console.log(email + " has logged in")
         }
         catch (e){

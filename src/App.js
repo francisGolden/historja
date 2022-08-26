@@ -7,7 +7,6 @@ import Notes from "./components/Notes";
 import { AuthContextProvider } from "./context/AuthContext";
 import { NoteProvider } from "./context/NoteContext";
 import ProtectedRoute from "./components/ProtectedRoute";
-import EditNote from "./components/EditNote";
 import FlashCard from "./components/FlashCard";
 import NoteList from "./components/NoteList";
 
@@ -32,9 +31,9 @@ function App() {
             <Route path="/new" element={<ProtectedRoute>
               <Notes />
               </ProtectedRoute>} />
-            <Route path="/edit" element={<ProtectedRoute>
+            {/* <Route path="/edit" element={<ProtectedRoute>
               <EditNote />
-              </ProtectedRoute>} />
+              </ProtectedRoute>} /> */}
             <Route path="/flash" element={<ProtectedRoute>
               <FlashCard />
               </ProtectedRoute>} />

@@ -168,7 +168,7 @@ const NoteList = () => {
 
             <h1 className="text-6xl my-5 font-bold">My Events</h1>
 
-            <input className="p-2" type="text" placeholder="name of event or period" onClick={() => setToEdit("")} onChange={(e) => setSearch(e.target.value)} />
+            <input className="p-2 text-center" type="text" placeholder="name of event or period" onClick={() => setToEdit("")} onChange={(e) => setSearch(e.target.value)} />
 
             <div className="flex flex-col w-full lg:w-1/2 gap-2">
                 {filtrd.map((note) => {

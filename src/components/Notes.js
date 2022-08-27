@@ -139,7 +139,7 @@ const Notes = () => {
 
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="beginning">Beginning</label>
-                        <textarea className="bg-slate-100/80 p-1"
+                        <textarea className="bg-slate-100/80 p-1" required
                             placeholder="It started like this..." value={beginning}
                             onChange={(e) => { setBeginning(e.target.value) }} type="text" name="beginning" />
                     </div>
@@ -147,14 +147,14 @@ const Notes = () => {
 
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="unfold">Unfold</label>
-                        <textarea className="bg-slate-100/80 p-1"
+                        <textarea className="bg-slate-100/80 p-1" required
                             placeholder="It developed like that..." value={unfold}
                             onChange={(e) => { setUnfold(e.target.value) }} type="text" name="unfold" />
                     </div>
 
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="end">End</label>
-                        <textarea className="bg-slate-100/80 p-1"
+                        <textarea className="bg-slate-100/80 p-1" required
                             placeholder="It ended like this..." value={end}
                             onChange={(e) => { setEnd(e.target.value) }} type="text" name="end" />
                     </div>
@@ -168,7 +168,7 @@ const Notes = () => {
 
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="source">Source</label>
-                        <textarea className="bg-slate-100/80 p-1"
+                        <textarea className="bg-slate-100/80 p-1" required
                             placeholder="Barbero, Alessandro (2013), The Battle: A New History of Waterloo, 
                             Atlantic Books, p. 160, ISBN 978-1-78239-138-8" value={source}
                             onChange={(e) => { setSource(e.target.value) }} type="text" name="source" />

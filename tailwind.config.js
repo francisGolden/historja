@@ -9,7 +9,7 @@ module.exports = {
         "romano": "url('img/romano.jpg')",
         "wolfe": "url('img/wolfe.jpeg')",
         "cardsharps": "url('img/cardsharps.jpg')",
-        "trafalgar": "url('img/trafalgar.jpeg')",
+        "trafalgar": "url('img/trafalgar.jpg')",
       }
     },
   },

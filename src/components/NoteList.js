@@ -2,12 +2,15 @@ import { useContext, useState, useEffect } from "react";
 import { db } from "../firebase";
 import { NoteContext } from "../context/NoteContext";
 import { onSnapshot, collection, query, deleteDoc, doc, updateDoc } from "firebase/firestore";
-import EditNote from "./EditNote";
 import EditForm from "./EditForm";
-import { BsFillArrowDownCircleFill, BsFillTagFill } from "react-icons/bs"
+import sortArray from 'sort-array'
+import Timeline from "./Timeline";
+import { GiDumplingBao } from "react-icons/gi";
 
 const NoteList = () => {
     const { notes, setNotes } = useContext(NoteContext);
+
+
 
     const [toEdit, setToEdit] = useState("")
 
@@ -22,6 +25,7 @@ const NoteList = () => {
     const [newTag, setNewTag] = useState("")
 
     const [search, setSearch] = useState("");
+    const [sort, setSort] = useState("")
 
     // this useEffect makes it so that every render
     // the firebase database is Synced with the notes state
@@ -70,6 +74,8 @@ const NoteList = () => {
         setToEdit("")
     };
 
+
+
     // this function makes it so that changes to newTitle and newContent
     // states are reflected on the original notes state
     const handleEditChange = (e) => {
@@ -117,7 +123,7 @@ const NoteList = () => {
         await deleteDoc(doc(db, "notes", id))
     }
 
-    const display = () => {
+    const displayEvents = () => {
         return (
             notes.map((note) => {
                 if (note.id === toEdit) {
@@ -155,10 +161,70 @@ const NoteList = () => {
         )
     };
 
+    useEffect(() => {
+        console.log(sort)
+
+        handleSort()
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sort])
+
+
+
+    const handleSort = () => {
+
+
+        if (sort === "desc") {
+            setNotes(sortArray(notes.map((note) => {
+                return (
+                    { ...note, when: Number(note.when) }
+                )
+            }), {
+                by: "when",
+                order: "desc"
+            }))
+        }
+
+        if (sort === "asc") {
+            setNotes(sortArray(notes.map((note) => {
+                return (
+                    { ...note, when: Number(note.when) }
+                )
+            }), {
+                by: "when",
+                order: "asc"
+            }))
+        }
+
+        console.log(notes)
+
+    }
+
+    let arr = new Set()
+
+    const getTags = () => {
+
+        notes.map((note) => {
+            return (Array.from(note.tag.toLowerCase().split(",").map((t) => {
+                arr.add(t)
+            })))
+
+        })
+
+
+        return Array.from(arr)
+    }
+
+    useEffect(() => {
+        getTags()
+    }, [notes])
+
     const filtrd = notes.filter(item =>
         item.event.toLowerCase().includes(search.toLowerCase())
-        || item.when.includes(search)
+        || item.when.toString().includes(search)
         || item.tag.toLowerCase().includes(search.toLowerCase()));
+
+
 
 
     return (
@@ -168,20 +234,73 @@ const NoteList = () => {
 
             <h1 className="text-6xl my-5 font-bold">My Events</h1>
 
-            <input className="p-2 text-center" type="text" placeholder="name of event or period" onClick={() => setToEdit("")} onChange={(e) => setSearch(e.target.value)} />
+            <div className="flex flex-col gap-2 w-fit">
+                <input className="px-2 py-1 text-center bg-slate-100/80" type="text" placeholder="event, year or tag"
+                    onClick={() => setToEdit("") && setSearch("")}
+                    onChange={(e) => setSearch(e.target.value)} />
+
+                <div className="flex flex-col bg-zinc-100">
+                    <label htmlFor="sort" className="px-4">Sort by year</label>
+                    <select className="bg-red-200 w-full px-4" onChange={(e) => setSort(e.target.value)} name="sort" id="sort">
+                        <option value="desc">Descending</option>
+                        <option value="asc">Ascending</option>
+                    </select>
+                </div>
+            </div>
+
+                {/* {notes.map((note) => {
+                    return (Array.from(note.tag.toLowerCase().split(",").map((t) => {
+
+                        return (
+                            <li id={t}
+                                className=" odd:bg-zinc-400 font-bold even:bg-zinc-400 shadow-sm cursor-pointer
+                         text-slate-100 list-item px-2 text-xl rounded-lg w-fit"
+                                onClick={(e) => setSearch(e.target.id)}>
+                                {t}
+                            </li>
+                        )
+                    })))
+
+                })} */}
+
+                {(arr) ? (
+                    <ul className="grid grid-cols-2 lg:grid-cols-3 w-full lg:w-1/3 items-center gap-2">
+
+                        <li onClick={() => setSearch("")} 
+                        className="cursor-pointer shadow-sm text-white 
+                font-bold bg-zinc-600/50 list-item px-2 text-xl rounded-lg"
+                >
+                            All events
+                        </li>
+
+                        {getTags().map((t) => {
+                            return (
+                                <li id={t}
+                                    className=" odd:bg-zinc-400/50 font-bold
+                                     even:bg-zinc-400/50 shadow-sm cursor-pointer
+                         text-slate-100 list-item px-2 text-xl rounded-lg"
+                                    onClick={(e) => setSearch(e.target.id)}>
+                                    {t}
+                                </li>
+                            )
+                        })}
+
+                    </ul>
+                ) : null}
+
 
             <div className="flex flex-col w-full lg:w-1/2 gap-2">
                 {filtrd.map((note) => {
                     return (
-                        <div className="flex  flex-col gap-2 
+                        <div className="flex flex-col gap-2 
                         p-2 bg-slate-200/70 shadow-lg" key={note.id}>
                             <p className="font-bold">{note.event} </p>
                             <p>{note.when}</p>
                             <ul className="flex gap-2">
                                 {Array.from(note.tag.toLowerCase().split(",")).map((t) => {
-                                return (
-                                    <li className="bg-blue-300 list-item px-2 text-xl rounded-lg w-fit">{t}</li>
-                                )
+                                    return (
+                                        <li className="bg-blue-300 list-item px-2 text-sm rounded-lg w-fit">{t}</li>
+                                    )
                                 })}
                             </ul>
                             <div className="flex gap-2">
@@ -196,10 +315,12 @@ const NoteList = () => {
 
             {(toEdit) ? (
                 <div className="flex w-full lg:w-1/2">
-                    {display()}
+                    {displayEvents()}
                 </div>
-                )
-            : null}
+            )
+                : null}
+
+            <Timeline filtrd={filtrd} />
 
 
         </div>

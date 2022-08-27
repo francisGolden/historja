@@ -39,7 +39,10 @@ const EditForm = ({ note
     return (
         <form onSubmit={handleSubmit} id={note.id} className="flex flex-col gap-2 w-full">
 
-            <h2 className="text-center">Edit the desired fields and then <br></br>click the <b className="bg-blue-100 p-1 rounded">Save edits</b> button at the bottom of the page</h2>
+            <h2 className="text-center">
+                Edit the desired fields and then <br></br>click the
+                <b className="bg-blue-100 p-1 rounded">Save edits</b> button at the bottom of the page
+            </h2>
 
             <div className="flex flex-col gap-2 p-2 bg-slate-300/70">
                 <h1>Section 1</h1>

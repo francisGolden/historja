@@ -1,16 +1,16 @@
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
-import { SiUpwork } from "react-icons/si";
 import {MdPlace} from "react-icons/md"
 import {BsPersonFill} from "react-icons/bs"
 import {GiSandsOfTime} from "react-icons/gi"
 import {MdTimeline} from "react-icons/md"
 
 
+
 const Timeline = ({filtrd}) => {
 
     return (
-        <VerticalTimeline>
+        <VerticalTimeline animate={false}>
             {filtrd.map((note, index) => {
                 return (
                     <VerticalTimelineElement

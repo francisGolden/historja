@@ -248,45 +248,31 @@ const NoteList = () => {
                 </div>
             </div>
 
-                {/* {notes.map((note) => {
-                    return (Array.from(note.tag.toLowerCase().split(",").map((t) => {
 
+            {(arr) ? (
+                <ul className="grid grid-cols-2 lg:grid-cols-3 w-full lg:w-1/3 items-center gap-2">
+
+                    <li onClick={() => setSearch("")} 
+                    className="cursor-pointer shadow-sm text-white 
+            font-bold bg-zinc-600/50 list-item px-2 text-xl rounded-lg"
+            >
+                        All events
+                    </li>
+
+                    {getTags().map((t) => {
                         return (
                             <li id={t}
-                                className=" odd:bg-zinc-400 font-bold even:bg-zinc-400 shadow-sm cursor-pointer
-                         text-slate-100 list-item px-2 text-xl rounded-lg w-fit"
+                                className=" odd:bg-zinc-400/50 font-bold
+                                    even:bg-zinc-400/50 shadow-sm cursor-pointer
+                        text-slate-100 list-item px-2 text-xl rounded-lg"
                                 onClick={(e) => setSearch(e.target.id)}>
                                 {t}
                             </li>
                         )
-                    })))
+                    })}
 
-                })} */}
-
-                {(arr) ? (
-                    <ul className="grid grid-cols-2 lg:grid-cols-3 w-full lg:w-1/3 items-center gap-2">
-
-                        <li onClick={() => setSearch("")} 
-                        className="cursor-pointer shadow-sm text-white 
-                font-bold bg-zinc-600/50 list-item px-2 text-xl rounded-lg"
-                >
-                            All events
-                        </li>
-
-                        {getTags().map((t) => {
-                            return (
-                                <li id={t}
-                                    className=" odd:bg-zinc-400/50 font-bold
-                                     even:bg-zinc-400/50 shadow-sm cursor-pointer
-                         text-slate-100 list-item px-2 text-xl rounded-lg"
-                                    onClick={(e) => setSearch(e.target.id)}>
-                                    {t}
-                                </li>
-                            )
-                        })}
-
-                    </ul>
-                ) : null}
+                </ul>
+            ) : null}
 
 
             <div className="flex flex-col w-full lg:w-1/2 gap-2">

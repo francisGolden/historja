@@ -2,15 +2,20 @@ import { useContext, useState, useEffect } from "react";
 import { db } from "../firebase";
 import { NoteContext } from "../context/NoteContext";
 import { onSnapshot, collection, query, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import {GoogleMap, useLoadScript, Marker} from "@react-google-maps/api"
+import Map from "./MapContainer";
+
+
+
 import EditForm from "./EditForm";
 import sortArray from 'sort-array'
 import Timeline from "./Timeline";
-import { GiDumplingBao } from "react-icons/gi";
+import Switch from "react-switch";
 
 const NoteList = () => {
     const { notes, setNotes } = useContext(NoteContext);
 
-
+    const [checked, setChecked] = useState(true)
 
     const [toEdit, setToEdit] = useState("")
 
@@ -27,6 +32,9 @@ const NoteList = () => {
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState("")
 
+    const [url, setUrl] = useState("https://api.openweathermap.org/data/2.5/weather?q=london&APPID=3fc4df175cc8ba6e45de7d3a75fc0a64&units=metric")
+    const [coords, setCoords] = useState()
+
     // this useEffect makes it so that every render
     // the firebase database is Synced with the notes state
     // it also manages the loading spinner
@@ -39,7 +47,7 @@ const NoteList = () => {
                 notesArr.push({ ...doc.data(), id: doc.id })
             });
             setNotes(notesArr);
-
+            
 
         })
         return () => unsubscribe()
@@ -47,8 +55,9 @@ const NoteList = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+
+    
     const handleSelect = (e) => {
-        console.log(e.target.id)
 
         setToEdit(e.target.id)
 
@@ -74,6 +83,10 @@ const NoteList = () => {
         setToEdit("")
     };
 
+    const handleToggle = () => {
+        setChecked(!checked)
+        
+    }
 
 
     // this function makes it so that changes to newTitle and newContent
@@ -125,7 +138,7 @@ const NoteList = () => {
 
     const displayEvents = () => {
         return (
-            notes.map((note) => {
+            notes.map((note, index) => {
                 if (note.id === toEdit) {
                     return (
                         <EditForm
@@ -154,6 +167,7 @@ const NoteList = () => {
                             toEdit={toEdit}
                             setToEdit={setToEdit}
                             handleSubmit={handleSubmit}
+                            key={index}
                         />
                     )
                 }
@@ -205,7 +219,7 @@ const NoteList = () => {
     const getTags = () => {
 
         notes.map((note) => {
-            return (Array.from(note.tag.toLowerCase().split(",").map((t) => {
+            return (Array.from(note.tag.toLowerCase().trim().replace(/\s*\,\s*/g, ",").split(",").map((t) => {
                 arr.add(t)
             })))
 
@@ -225,45 +239,77 @@ const NoteList = () => {
         || item.tag.toLowerCase().includes(search.toLowerCase()));
 
 
+    // const {isLoaded} = useLoadScript({
+    //     googleMapsApiKey: process.env.REACT_app_googleMapsApiKey,
+    // }) 
+        
+    // const fetchSync = async() => {
+    //     let placesArr = []
+    //     let result = []
 
+    //     notes.forEach((note)=>{
+    //         const places = {place: note.where, id: note.id, url: `https://api.openweathermap.org/data/2.5/weather?q=${note.where}&APPID=3fc4df175cc8ba6e45de7d3a75fc0a64&units=metric"`}
+    //         placesArr.push(places)
+    //     })
+
+    //     for (const place of placesArr) {
+    //         const response = await fetch(place.url, {mode:"cors"})
+    //         const data = await response.json()
+    //         result.push({lat: data.coord.lat, lng: data.coord.lon})
+    //         setCoords(result)
+    //     }
+        
+    //     setCoords(result)
+        
+    // }
+
+    // console.log(coords)
 
     return (
         <div className="flex flex-col justify-start bg-trafalgar bg-no-repeat 
-        bg-cover p-3 
+        bg-cover p-3 bg-blend-soft-light
         items-center flex-1 text-2xl bg-slate-300 gap-5">
+
+
 
             <h1 className="text-6xl my-5 font-bold">My Events</h1>
 
-            <div className="flex flex-col gap-2 w-fit">
-                <input className="px-2 py-1 text-center bg-slate-100/80" type="text" placeholder="event, year or tag"
+            <div className="flex flex-col sm:flex-row gap-2 w-fit">
+                <input className="px-2 py-1 text-center bg-zinc-100/80" type="text" placeholder="event, year or tag"
                     onClick={() => setToEdit("") && setSearch("")}
                     onChange={(e) => setSearch(e.target.value)} />
 
-                <div className="flex flex-col bg-zinc-100">
-                    <label htmlFor="sort" className="px-4">Sort by year</label>
-                    <select className="bg-red-200 w-full px-4" onChange={(e) => setSort(e.target.value)} name="sort" id="sort">
-                        <option value="desc">Descending</option>
-                        <option value="asc">Ascending</option>
-                    </select>
-                </div>
+
+                <select defaultValue={"default"} className="bg-zinc-500/80 text-zinc-100 w-full px-4" onChange={(e) => setSort(e.target.value)} name="sort" id="sort">
+                    <option value="default" disabled>Sort by year</option>
+                    <option value="desc">Descending</option>
+                    <option value="asc">Ascending</option>
+                </select>
+
+                <label className="flex justify-center items-center gap-1">
+                    <div>Timeline</div>
+                    <Switch onChange={handleToggle} checked={checked} />
+                </label>
+
+
             </div>
 
 
             {(arr) ? (
                 <ul className="grid grid-cols-2 lg:grid-cols-3 w-full lg:w-1/3 items-center gap-2">
 
-                    <li onClick={() => setSearch("")} 
-                    className="cursor-pointer shadow-sm text-white 
-            font-bold bg-zinc-600/50 list-item px-2 text-xl rounded-lg"
-            >
+                    <li onClick={() => setSearch("")}
+                        className="cursor-pointer shadow-sm text-white 
+            font-bold bg-zinc-600/70 list-item px-2 text-xl rounded-lg"
+                    >
                         All events
                     </li>
 
-                    {getTags().map((t) => {
+                    {getTags().map((t, index) => {
                         return (
-                            <li id={t}
-                                className=" odd:bg-zinc-400/50 font-bold
-                                    even:bg-zinc-400/50 shadow-sm cursor-pointer
+                            <li id={t} key={index}
+                                className=" odd:bg-slate-400/70 font-bold
+                                    even:bg-slate-400/70 shadow-sm cursor-pointer
                         text-slate-100 list-item px-2 text-xl rounded-lg"
                                 onClick={(e) => setSearch(e.target.id)}>
                                 {t}
@@ -272,7 +318,7 @@ const NoteList = () => {
                     })}
 
                 </ul>
-            ) : null}
+            ):null}
 
 
             <div className="flex flex-col w-full lg:w-1/2 gap-2">
@@ -283,9 +329,9 @@ const NoteList = () => {
                             <p className="font-bold">{note.event} </p>
                             <p>{note.when}</p>
                             <ul className="flex gap-2">
-                                {Array.from(note.tag.toLowerCase().split(",")).map((t) => {
+                                {Array.from(note.tag.toLowerCase().split(",")).map((t, index) => {
                                     return (
-                                        <li className="bg-blue-300 list-item px-2 text-sm rounded-lg w-fit">{t}</li>
+                                        <li key={index} className="bg-blue-300 list-item px-2 text-sm rounded-lg w-fit">{t}</li>
                                     )
                                 })}
                             </ul>
@@ -304,9 +350,16 @@ const NoteList = () => {
                     {displayEvents()}
                 </div>
             )
-                : null}
+            :null}
 
-            <Timeline filtrd={filtrd} />
+            {/* {(!isLoaded) ? (<div>loading...</div>) : 
+            <Map coords={coords}/>} */}
+
+            {(checked) === true ? (
+                <Timeline filtrd={filtrd} />
+            ):null}
+            
+
 
 
         </div>

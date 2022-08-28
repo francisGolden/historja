@@ -1,13 +1,6 @@
-import { useState } from "react";
-import { useContext } from "react";
-// import { UserAuth } from "../context/AuthContext";
-import { NoteContext } from "../context/NoteContext";
-import { db } from "../firebase";
-import { useEffect } from "react";
-import { doc, updateDoc, deleteDoc, query, collection, onSnapshot } from "firebase/firestore";
-import { IoMdCreate, IoIosCreate } from "react-icons/io"
-import { FaSpinner } from "react-icons/fa"
-import { MdOutlineDelete } from "react-icons/md"
+
+import { IoIosCreate } from "react-icons/io"
+
 
 const EditForm = ({ note
     , handleDelete

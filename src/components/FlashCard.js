@@ -132,7 +132,7 @@ const FlashCard = () => {
     
     return (
         <div className="flex flex-col justify-center bg-cardsharps bg-no-repeat 
-        bg-cover p-3
+        bg-cover p-3 bg-blend-soft-light
         items-center flex-1 text-2xl bg-slate-300 gap-5">
 
             <div className="flex flex-col text-center rounded-xl 

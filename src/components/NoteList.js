@@ -5,6 +5,8 @@ import { onSnapshot, collection, query, deleteDoc, doc, updateDoc } from "fireba
 import {GoogleMap, useLoadScript, Marker} from "@react-google-maps/api"
 import Map from "./MapContainer";
 
+import Autocomplete from "./Autocomplete";
+
 
 
 import EditForm from "./EditForm";
@@ -15,7 +17,8 @@ import Switch from "react-switch";
 const NoteList = () => {
     const { notes, setNotes } = useContext(NoteContext);
 
-    const [checked, setChecked] = useState(true)
+    const [checked, setChecked] = useState(false)
+    const [seeMap, setSeeMap] = useState(false)
 
     const [toEdit, setToEdit] = useState("")
 
@@ -47,15 +50,12 @@ const NoteList = () => {
                 notesArr.push({ ...doc.data(), id: doc.id })
             });
             setNotes(notesArr);
-            
 
         })
         return () => unsubscribe()
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-
     
     const handleSelect = (e) => {
 
@@ -85,7 +85,6 @@ const NoteList = () => {
 
     const handleToggle = () => {
         setChecked(!checked)
-        
     }
 
 
@@ -183,11 +182,13 @@ const NoteList = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sort])
 
+    // const [forMap, setForMap] = useState()
 
+    // useEffect(()=>{
+    //     setForMap(notes)
+    // }, [])
 
     const handleSort = () => {
-
-
         if (sort === "desc") {
             setNotes(sortArray(notes.map((note) => {
                 return (
@@ -209,25 +210,20 @@ const NoteList = () => {
                 order: "asc"
             }))
         }
-
         console.log(notes)
-
     }
 
-    let arr = new Set()
+    let arr = new Set();
 
     const getTags = () => {
-
         notes.map((note) => {
             return (Array.from(note.tag.toLowerCase().trim().replace(/\s*\,\s*/g, ",").split(",").map((t) => {
                 arr.add(t)
             })))
-
         })
 
-
         return Array.from(arr)
-    }
+    };
 
     useEffect(() => {
         getTags()
@@ -238,10 +234,13 @@ const NoteList = () => {
         || item.when.toString().includes(search)
         || item.tag.toLowerCase().includes(search.toLowerCase()));
 
-
-    // const {isLoaded} = useLoadScript({
-    //     googleMapsApiKey: process.env.REACT_app_googleMapsApiKey,
-    // }) 
+    
+    const [libraries] = useState(["places"])
+    
+    const {isLoaded} = useLoadScript({
+        googleMapsApiKey: process.env.REACT_app_googleMapsApiKey,
+        libraries,
+    }) 
         
     // const fetchSync = async() => {
     //     let placesArr = []
@@ -265,6 +264,8 @@ const NoteList = () => {
 
     // console.log(coords)
 
+    
+
     return (
         <div className="flex flex-col justify-start bg-trafalgar bg-no-repeat 
         bg-cover p-3 bg-blend-soft-light
@@ -280,14 +281,15 @@ const NoteList = () => {
                     onChange={(e) => setSearch(e.target.value)} />
 
 
-                <select defaultValue={"default"} className="bg-zinc-500/80 text-zinc-100 w-full px-4" onChange={(e) => setSort(e.target.value)} name="sort" id="sort">
+                <select defaultValue={"default"} className="bg-zinc-500/80 text-zinc-100 w-full px-4" 
+                onChange={(e) => setSort(e.target.value)} name="sort" id="sort">
                     <option value="default" disabled>Sort by year</option>
                     <option value="desc">Descending</option>
                     <option value="asc">Ascending</option>
                 </select>
 
                 <label className="flex justify-center items-center gap-1">
-                    <div>Timeline</div>
+                    <div>Edit/Timeline</div>
                     <Switch onChange={handleToggle} checked={checked} />
                 </label>
 
@@ -321,7 +323,8 @@ const NoteList = () => {
             ):null}
 
 
-            <div className="flex flex-col w-full lg:w-1/2 gap-2">
+            {checked === false ? (
+                <div className="flex flex-col w-full lg:w-1/2 gap-2">
                 {filtrd.map((note) => {
                     return (
                         <div className="flex flex-col gap-2 
@@ -344,6 +347,9 @@ const NoteList = () => {
                     )
                 })}
             </div>
+            ):null}
+            
+
 
             {(toEdit) ? (
                 <div className="flex w-full lg:w-1/2">
@@ -352,15 +358,15 @@ const NoteList = () => {
             )
             :null}
 
-            {/* {(!isLoaded) ? (<div>loading...</div>) : 
-            <Map coords={coords}/>} */}
+            {(!isLoaded) ? (<div>loading...</div>) : 
+            <Map filtrd={filtrd} coords={{lat: 9.869370, lng: 46.171280}}/>}
 
             {(checked) === true ? (
                 <Timeline filtrd={filtrd} />
             ):null}
             
 
-
+            {/* <Autocomplete isLoaded={isLoaded}/> */}
 
         </div>
     )

@@ -92,7 +92,8 @@ const FlashCard = () => {
                     item !== "id" &&
                     item !== "content" &&
                     item !== "event" && 
-                    item !== "tag") {
+                    item !== "tag" &&
+                    item !== "coords") {
                         arr = []
                         arr[0] = item;
                         arr[1] = note[item]

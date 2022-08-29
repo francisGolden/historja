@@ -1,14 +1,19 @@
-import { useMemo } from "react";
-import {GoogleMap, useLoadScript, Marker} from "@react-google-maps/api"
+import {GoogleMap, MarkerF} from "@react-google-maps/api"
 
-const Map = ({coords}) => {
+
+const Map = ({filtrd}) => {
+    console.log(filtrd)
+
+    
+    
     return (
-    <GoogleMap zoom={5} center={{lat: 48.2085, lng: 16.3721}}
+    <GoogleMap zoom={4} center={{lat: 41.9027835, lng: 12.4963655}}
     mapContainerClassName="w-full h-[400px]">
-        {coords.map((coord)=>{
+        {filtrd.map((event)=>{
             return (
-                <Marker position={coord}>
-                </Marker>
+                <MarkerF label={`${event.event} (${event.when})`} key={event.id} position={event.coords}>
+
+                </MarkerF>
             )
         })}
         

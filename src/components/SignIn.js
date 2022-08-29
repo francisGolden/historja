@@ -74,7 +74,7 @@ const SignIn = () => {
             </form>
 
 
-            Don't have an account?<Link to="signup">Sign up</Link>
+            {/* Don't have an account?<Link to="signup">Sign up</Link> */}
 
         </div>
     )

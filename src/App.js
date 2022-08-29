@@ -21,7 +21,7 @@ function App() {
           <NavBar />
           <Routes>
             <Route path="/" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
+            {/* <Route path="/signup" element={<SignUp />} /> */}
             <Route path="/account" element={<ProtectedRoute>
               <Account />
               </ProtectedRoute>} />

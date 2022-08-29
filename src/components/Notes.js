@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { onSnapshot, collection, addDoc, query } from "firebase/firestore";
 import { useContext } from "react";
 import { NoteContext } from "../context/NoteContext";
+import Autocomplete from "./Autocomplete";
 
 import { UserAuth } from "../context/AuthContext";
 import { BsFillArrowDownCircleFill, BsFillTagFill } from "react-icons/bs"
+import { useLoadScript } from "@react-google-maps/api";
 
 
 const Notes = () => {
@@ -25,9 +27,14 @@ const Notes = () => {
     const [source, setSource] = useState("");
     const [tag, setTag] = useState("")
 
+    const [coords, setCoords] = useState("")
+
     const [loading, setLoading] = useState(false)
 
     const { notes, setNotes } = useContext(NoteContext)
+
+
+    const [address, setAddress] = useState("")
 
     // this useEffect makes it so that every render
     // the firebase database is Synced with the notes state
@@ -49,6 +56,8 @@ const Notes = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+
+
     const handleNew = async (e) => {
         e.preventDefault();
 
@@ -57,6 +66,7 @@ const Notes = () => {
             content: content,
             event: event,
             where: where,
+            coords: coords,
             when: when,
             who: who,
             beginning: beginning,
@@ -64,25 +74,37 @@ const Notes = () => {
             end: end,
             source: source,
             tag: tag,
-            userid: user.uid
+            userid: user.uid,
+            
         });
 
         setEvent("")
         setWhen("")
         setWhere("")
+        setCoords("")
         setWho("")
         setBeginning("")
         setUnfold("")
         setEnd("")
+        setAddress("")
         setSource("")
         setTag("")
 
+        setAddress("")
 
     }
 
+    const [libraries] = useState(["places"])
+    
+    const {isLoaded} = useLoadScript({
+        googleMapsApiKey: process.env.REACT_app_googleMapsApiKey,
+        libraries,
+    }) 
+
+    
     return (
 
-        <form className="flex flex-col justify-start bg-wolfe bg-no-repeat 
+        <form className="flex flex-col justify-start bg-peirson bg-no-repeat 
             bg-cover p-3 bg-blend-soft-light
             items-center flex-1 text-2xl bg-slate-300 gap-2
             " onSubmit={handleNew}>
@@ -110,10 +132,18 @@ const Notes = () => {
 
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="where">Where</label>
-                        <textarea className="bg-slate-100/80 p-1"
-                            placeholder="Waterloo" value={where} required
-                            onChange={(e) => { setWhere(e.target.value) }} type="text" name="where" />
+                        {/* <textarea className="bg-slate-100/80 p-1"
+                            placeholder="Waterloo" value={where}
+                            // onChange={(e) => { setWhere(e.target.value) }} 
+                            type="text" name="where" />
+                         */}
+                        <Autocomplete setWhere={setWhere}  address={address}
+                        setAddress={setAddress}
+                        where={where} coords={coords} setCoords={setCoords}
+                        isLoaded={isLoaded}/>
                     </div>
+
+                    
 
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="when">When</label>

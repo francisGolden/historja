@@ -1,5 +1,7 @@
-
-import { IoIosCreate } from "react-icons/io"
+import { useState } from "react";
+import { IoIosCreate } from "react-icons/io";
+import EditAutocomplete from "./EditAutocomplete";
+import { useLoadScript } from "@react-google-maps/api";
 
 
 const EditForm = ({ note
@@ -23,11 +25,18 @@ const EditForm = ({ note
     , setNewUnfold
     , setNewEnd
     , setNewSource
-    , setNewTag
-    , toEdit
-    , setToEdit,
-    handleSubmit }) => {
+    , setNewTag,
+    handleSubmit, newCoords, setNewCoords }) => {
+        
+    const [libraries] = useState(["places"])
 
+    const [address, setAddress] = useState("")
+
+    
+    const {isLoaded} = useLoadScript({
+        googleMapsApiKey: process.env.REACT_app_googleMapsApiKey,
+        libraries,
+    })    
 
     return (
         <form onSubmit={handleSubmit} id={note.id} className="flex flex-col gap-2 w-full">
@@ -52,9 +61,14 @@ const EditForm = ({ note
                 <h1>Section 2</h1>
                 <div className="flex flex-col">
                     <label className="font-bold" htmlFor="where">Where</label>
-                    <textarea className="bg-slate-100/80 p-1" type="text" value={newWhere}
+                    {/* <textarea className="bg-slate-100/80 p-1" type="text" value={newWhere}
                         onChange={(e) => setNewWhere(e.target.value)}
-                        name="where" />
+                        name="where" /> */}
+
+                    <EditAutocomplete isLoaded={isLoaded} setNewWhere={setNewWhere} 
+                    newWhere={newWhere} address={address} setAddress={setAddress}
+                    newCoords={newCoords} setNewCoords={setNewCoords}/>
+
                 </div>
 
                 <div className="flex flex-col">

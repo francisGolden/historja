@@ -33,7 +33,6 @@ const Notes = () => {
 
     const { notes, setNotes } = useContext(NoteContext)
 
-
     const [address, setAddress] = useState("")
 
     // this useEffect makes it so that every render

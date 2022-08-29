@@ -31,12 +31,15 @@ const NoteList = () => {
     const [newEnd, setNewEnd] = useState("");
     const [newSource, setNewSource] = useState("");
     const [newTag, setNewTag] = useState("")
+    const [newCoords, setNewCoords] = useState()
 
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState("")
 
-    const [url, setUrl] = useState("https://api.openweathermap.org/data/2.5/weather?q=london&APPID=3fc4df175cc8ba6e45de7d3a75fc0a64&units=metric")
+    
     const [coords, setCoords] = useState()
+    
+    const [address, setAddress] = useState("")
 
     // this useEffect makes it so that every render
     // the firebase database is Synced with the notes state
@@ -72,6 +75,7 @@ const NoteList = () => {
                 setNewEnd(note.end)
                 setNewSource(note.source)
                 setNewTag(note.tag)
+                setNewCoords(note.coords)
             }
         })
 
@@ -104,7 +108,8 @@ const NoteList = () => {
                     unfold: newUnfold,
                     end: newEnd,
                     source: newSource,
-                    tag: newTag
+                    tag: newTag,
+                    coords: newCoords
                 }
             }
         }))
@@ -126,7 +131,8 @@ const NoteList = () => {
             unfold: newUnfold,
             end: newEnd,
             tag: newTag,
-            source: newSource
+            source: newSource,
+            coords: newCoords
         })
 
     };
@@ -167,6 +173,11 @@ const NoteList = () => {
                             setToEdit={setToEdit}
                             handleSubmit={handleSubmit}
                             key={index}
+                            address={address}
+                            newCoords={newCoords}
+                            setNewCoords={setNewCoords}
+                            setAddress={setAddress}
+                            isLoaded={isLoaded}
                         />
                     )
                 }
@@ -240,31 +251,7 @@ const NoteList = () => {
     const {isLoaded} = useLoadScript({
         googleMapsApiKey: process.env.REACT_app_googleMapsApiKey,
         libraries,
-    }) 
-        
-    // const fetchSync = async() => {
-    //     let placesArr = []
-    //     let result = []
-
-    //     notes.forEach((note)=>{
-    //         const places = {place: note.where, id: note.id, url: `https://api.openweathermap.org/data/2.5/weather?q=${note.where}&APPID=3fc4df175cc8ba6e45de7d3a75fc0a64&units=metric"`}
-    //         placesArr.push(places)
-    //     })
-
-    //     for (const place of placesArr) {
-    //         const response = await fetch(place.url, {mode:"cors"})
-    //         const data = await response.json()
-    //         result.push({lat: data.coord.lat, lng: data.coord.lon})
-    //         setCoords(result)
-    //     }
-        
-    //     setCoords(result)
-        
-    // }
-
-    // console.log(coords)
-
-    
+    })     
 
     return (
         <div className="flex flex-col justify-start bg-trafalgar bg-no-repeat 

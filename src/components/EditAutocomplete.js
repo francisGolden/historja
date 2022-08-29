@@ -4,20 +4,20 @@ import PlacesAutocomplete, {
   } from "react-places-autocomplete";
 
 
-const Autocomplete = ({ isLoaded, setWhere, where, setCoords, address, setAddress }) => {
+const EditAutocomplete = ({ isLoaded, setNewWhere, newWhere, setNewCoords, address, setAddress }) => {
 
     const handleChange = (value) => {
         setAddress(value)
-        setWhere(value)
+        setNewWhere(value)
     }
 
     const handleSelect = (value) => {
         setAddress(value)
-        setWhere(value)
+        setNewWhere(value)
         
         geocodeByAddress(value)
         .then(results => getLatLng(results[0]))
-        .then(latLng => setCoords(latLng))
+        .then(latLng => setNewCoords(latLng))
         .catch(error => console.log("error"))
 
     }
@@ -27,12 +27,12 @@ const Autocomplete = ({ isLoaded, setWhere, where, setCoords, address, setAddres
         <div className="flex w-full">
             {(!isLoaded) ? (<div>loading...</div>) :
                 (<div className="flex w-full">
-                    <PlacesAutocomplete value={address} onChange={handleChange} onSelect={handleSelect}>
+                    <PlacesAutocomplete value={newWhere} onChange={handleChange} onSelect={handleSelect}>
 
                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
                             return (
                             <div className="flex flex-col w-full">
-                                <textarea value={where} className="bg-slate-100/80 p-1" {...getInputProps({
+                                <textarea value={newWhere} className="bg-slate-100/80 p-1" {...getInputProps({
                                     placeholder: "Search Places ...",
                                 })} />
                                 <div>
@@ -61,4 +61,4 @@ const Autocomplete = ({ isLoaded, setWhere, where, setCoords, address, setAddres
     )
 }
 
-export default Autocomplete;
+export default EditAutocomplete;

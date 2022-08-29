@@ -30,12 +30,13 @@ const EditForm = ({ note
         
     const [libraries] = useState(["places"])
 
+
     const [address, setAddress] = useState("")
 
     
     const {isLoaded} = useLoadScript({
         googleMapsApiKey: process.env.REACT_app_googleMapsApiKey,
-        libraries,
+        libraries
     })    
 
     return (

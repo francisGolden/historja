@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { db } from "../firebase";
 import { NoteContext } from "../context/NoteContext";
 import { onSnapshot, collection, query, deleteDoc, doc, updateDoc } from "firebase/firestore";
-import {GoogleMap, useLoadScript, Marker} from "@react-google-maps/api"
+import {useLoadScript} from "@react-google-maps/api"
 import Map from "./MapContainer";
 
 import Autocomplete from "./Autocomplete";
@@ -248,9 +248,10 @@ const NoteList = () => {
     
     const [libraries] = useState(["places"])
     
+    
     const {isLoaded} = useLoadScript({
         googleMapsApiKey: process.env.REACT_app_googleMapsApiKey,
-        libraries,
+        libraries
     })     
 
     return (

@@ -64,6 +64,14 @@ const NoteList = () => {
 
         setToEdit(e.target.id)
 
+        // show only event the user is editing
+        if (search !== e.target.name) {
+            setSearch(e.target.name)
+        } else if (search === e.target.name) {
+            setSearch("")
+            setToEdit("")
+        }
+
         notes.forEach((note) => {
             if (note.id === e.target.id) {
                 setNewEvent(note.event)
@@ -85,6 +93,7 @@ const NoteList = () => {
         e.preventDefault()
 
         setToEdit("")
+        setSearch("")
     };
 
     const handleToggle = () => {
@@ -327,7 +336,7 @@ const NoteList = () => {
                                 })}
                             </ul>
                             <div className="flex gap-2">
-                                <button className="hover:bg-green-300 w-fit px-3 bg-green-100/70" onClick={handleSelect} id={note.id}>Edit</button>
+                                <button className="hover:bg-green-300 w-fit px-3 bg-green-100/70" onClick={handleSelect} name={note.event} id={note.id}>Edit</button>
                                 <button className="hover:bg-red-300 bg-red-100/70 w-fit px-3 " onClick={() => handleDelete(note.id)} id={note.id}>Delete</button>
                             </div>
 

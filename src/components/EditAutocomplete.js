@@ -33,7 +33,7 @@ const EditAutocomplete = ({ isLoaded, setNewWhere, newWhere, setNewCoords, addre
                             return (
                             <div className="flex flex-col w-full">
                                 <textarea value={newWhere} className="bg-slate-100/80 p-1" {...getInputProps({
-                                    placeholder: "Search Places ...",
+                                    placeholder: "Rome, Firenze, Sondrio, ...",
                                 })} />
                                 <div>
                                     {loading && <div>Loading...</div>}

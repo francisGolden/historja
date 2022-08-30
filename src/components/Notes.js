@@ -20,6 +20,7 @@ const Notes = () => {
     const [event, setEvent] = useState("");
     const [where, setWhere] = useState("");
     const [when, setWhen] = useState("");
+    const [why, setWhy] = useState("")
     const [who, setWho] = useState("");
     const [beginning, setBeginning] = useState("");
     const [unfold, setUnfold] = useState("");
@@ -65,6 +66,7 @@ const Notes = () => {
             content: content,
             event: event,
             where: where,
+            why: why,
             coords: coords,
             when: when,
             who: who,
@@ -80,6 +82,7 @@ const Notes = () => {
         setEvent("")
         setWhen("")
         setWhere("")
+        setWhy("")
         setCoords("")
         setWho("")
         setBeginning("")
@@ -149,6 +152,13 @@ const Notes = () => {
                         <textarea className="bg-slate-100/80 p-1"
                             placeholder="1815" value={when} required
                             onChange={(e) => { setWhen(e.target.value) }} type="text" name="when" />
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label className="font-bold" htmlFor="why">Why</label>
+                        <textarea className="bg-slate-100/80 p-1"
+                            placeholder="Because..." value={why} required
+                            onChange={(e) => { setWhy(e.target.value) }} type="text" name="why" />
                     </div>
 
                     <div className="flex flex-col">

@@ -26,18 +26,19 @@ const EditForm = ({ note
     , setNewEnd
     , setNewSource
     , setNewTag,
+    setNewWhy, newWhy,
     handleSubmit, newCoords, setNewCoords }) => {
-        
+
     const [libraries] = useState(["places"])
 
 
     const [address, setAddress] = useState("")
 
-    
-    const {isLoaded} = useLoadScript({
+
+    const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.REACT_app_googleMapsApiKey,
         libraries
-    })    
+    })
 
     return (
         <form onSubmit={handleSubmit} id={note.id} className="flex flex-col gap-2 w-full">
@@ -66,9 +67,9 @@ const EditForm = ({ note
                         onChange={(e) => setNewWhere(e.target.value)}
                         name="where" /> */}
 
-                    <EditAutocomplete isLoaded={isLoaded} setNewWhere={setNewWhere} 
-                    newWhere={newWhere} address={address} setAddress={setAddress}
-                    newCoords={newCoords} setNewCoords={setNewCoords}/>
+                    <EditAutocomplete isLoaded={isLoaded} setNewWhere={setNewWhere}
+                        newWhere={newWhere} address={address} setAddress={setAddress}
+                        newCoords={newCoords} setNewCoords={setNewCoords} />
 
                 </div>
 
@@ -77,6 +78,13 @@ const EditForm = ({ note
                     <textarea className="bg-slate-100/80 p-1" type="text" value={newWhen}
                         onChange={(e) => setNewWhen(e.target.value)}
                         name="when" />
+                </div>
+
+                <div className="flex flex-col">
+                    <label className="font-bold" htmlFor="why">Why</label>
+                    <textarea className="bg-slate-100/80 p-1" type="text" value={newWhy}
+                        onChange={(e) => setNewWhy(e.target.value)}
+                        name="why" />
                 </div>
 
                 <div className="flex flex-col">

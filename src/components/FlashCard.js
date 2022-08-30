@@ -110,7 +110,7 @@ const FlashCard = () => {
         setPlaying(true)
         setPlay("NEXT!")
         
-        if (incremental<=6){
+        if (incremental<=7){
             setIncremental(incremental + 1)
             setQuestion(arrContainer[incremental][0] + "?")
             setWhat(arrContainer[incremental][2])
@@ -151,7 +151,7 @@ const FlashCard = () => {
                     
                     {playing === false ? null : (<p className="bg-gradient-to-r from-yellow-300/60
                     to-yellow-500/60 
-                    py-5 text-4xl w-[100%]">{capitalize(question)} {playing === true ? `${incremental}/7` : null }</p>)}
+                    py-5 text-4xl w-[100%]">{capitalize(question)} {playing === true ? `${incremental}/8` : null }</p>)}
 
                     {playing === false ? (notes.map((note)=>{
                         return (

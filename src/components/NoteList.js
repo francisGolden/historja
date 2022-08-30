@@ -32,6 +32,7 @@ const NoteList = () => {
     const [newSource, setNewSource] = useState("");
     const [newTag, setNewTag] = useState("")
     const [newCoords, setNewCoords] = useState()
+    const [newWhy, setNewWhy] = useState("")
 
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState("")
@@ -84,6 +85,7 @@ const NoteList = () => {
                 setNewSource(note.source)
                 setNewTag(note.tag)
                 setNewCoords(note.coords)
+                setNewWhy(note.why)
             }
         })
 
@@ -112,6 +114,7 @@ const NoteList = () => {
                     event: newEvent,
                     where: newWhere,
                     when: newWhen,
+                    why: newWhy,
                     who: newWho,
                     beginning: newBeginning,
                     unfold: newUnfold,
@@ -135,6 +138,7 @@ const NoteList = () => {
             event: newEvent,
             where: newWhere,
             when: newWhen,
+            why: newWhy,
             who: newWho,
             beginning: newBeginning,
             unfold: newUnfold,
@@ -164,6 +168,7 @@ const NoteList = () => {
                             newWhere={newWhere}
                             newWhen={newWhen}
                             newWho={newWho}
+                            newWhy={newWhy}
                             newBeginning={newBeginning}
                             newUnfold={newUnfold}
                             newEnd={newEnd}
@@ -173,6 +178,7 @@ const NoteList = () => {
                             setNewWhere={setNewWhere}
                             setNewWhen={setNewWhen}
                             setNewWho={setNewWho}
+                            setNewWhy={setNewWhy}
                             setNewBeginning={setNewBeginning}
                             setNewUnfold={setNewUnfold}
                             setNewEnd={setNewEnd}
@@ -320,7 +326,7 @@ const NoteList = () => {
             ):null}
 
 
-            {checked === false ? (
+            {checked === false && (notes.length>0) ? (
                 <div className="flex flex-col w-full lg:w-1/2 gap-2">
                 {filtrd.map((note) => {
                     return (
@@ -358,7 +364,7 @@ const NoteList = () => {
             {(!isLoaded) ? (<div>loading...</div>) : 
             <Map filtrd={filtrd} coords={{lat: 9.869370, lng: 46.171280}}/>}
 
-            {(checked) === true ? (
+            {(checked) === true && (notes.length>0) ? (
                 <Timeline filtrd={filtrd} />
             ):null}
             

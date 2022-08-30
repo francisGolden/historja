@@ -325,6 +325,9 @@ const NoteList = () => {
                 </ul>
             ):null}
 
+{(!isLoaded) ? (<div>loading...</div>) : 
+            <Map filtrd={filtrd} coords={{lat: 9.869370, lng: 46.171280}}/>}
+
 
             {checked === false && (notes.length>0) ? (
                 <div className="flex flex-col w-full lg:w-1/2 gap-2">
@@ -361,8 +364,7 @@ const NoteList = () => {
             )
             :null}
 
-            {(!isLoaded) ? (<div>loading...</div>) : 
-            <Map filtrd={filtrd} coords={{lat: 9.869370, lng: 46.171280}}/>}
+            
 
             {(checked) === true && (notes.length>0) ? (
                 <Timeline filtrd={filtrd} />

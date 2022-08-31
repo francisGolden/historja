@@ -32,7 +32,7 @@ const Autocomplete = ({ isLoaded, setWhere, where, setCoords, address, setAddres
                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
                             return (
                             <div className="flex flex-col w-full">
-                                <textarea value={where} className="bg-slate-100/80 p-1" {...getInputProps({
+                                <input value={where} className="bg-slate-100/80 p-1" {...getInputProps({
                                     placeholder: "Rome, Firenze, Sondrio, ...",
                                 })} />
                                 <div>

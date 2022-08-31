@@ -26,6 +26,7 @@ const Notes = () => {
     const [unfold, setUnfold] = useState("");
     const [end, setEnd] = useState("");
     const [source, setSource] = useState("");
+    const [img, setImg] = useState("")
     const [tag, setTag] = useState("")
 
     const [coords, setCoords] = useState("")
@@ -75,6 +76,7 @@ const Notes = () => {
             end: end,
             source: source,
             tag: tag,
+            img: img,
             userid: user.uid,
             
         });
@@ -91,6 +93,7 @@ const Notes = () => {
         setAddress("")
         setSource("")
         setTag("")
+        setImg("")
 
         setAddress("")
 
@@ -149,9 +152,10 @@ const Notes = () => {
 
                     <div className="flex flex-col">
                         <label className="font-bold" htmlFor="when">When</label>
-                        <textarea className="bg-slate-100/80 p-1"
-                            placeholder="1815" value={when} required
-                            onChange={(e) => { setWhen(e.target.value) }} type="text" name="when" />
+                        <input className="bg-slate-100/80 p-1"
+                            placeholder="for B.C years insert minus before the year (-480)" 
+                            value={when} required
+                            onChange={(e) => { setWhen(e.target.value) }} type="number" name="when" />
                     </div>
 
                     <div className="flex flex-col">
@@ -211,6 +215,13 @@ const Notes = () => {
                             placeholder="Barbero, Alessandro (2013), The Battle: A New History of Waterloo, 
                             Atlantic Books, p. 160, ISBN 978-1-78239-138-8" value={source}
                             onChange={(e) => { setSource(e.target.value) }} type="text" name="source" />
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label className="font-bold" htmlFor="img">Image URL</label>
+                        <input className="bg-slate-100/80 p-1"
+                            value={img}
+                            onChange={(e) => { setImg(e.target.value) }} type="text" name="img" />
                     </div>
 
                     <div className="flex flex-col">

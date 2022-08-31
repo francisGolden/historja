@@ -26,6 +26,7 @@ const EditForm = ({ note
     , setNewEnd
     , setNewSource
     , setNewTag,
+    newImg, setNewImg,
     setNewWhy, newWhy,
     handleSubmit, newCoords, setNewCoords }) => {
 
@@ -75,7 +76,7 @@ const EditForm = ({ note
 
                 <div className="flex flex-col">
                     <label className="font-bold" htmlFor="when">When</label>
-                    <textarea className="bg-slate-100/80 p-1" type="text" value={newWhen}
+                    <input className="bg-slate-100/80 p-1" type="number" value={newWhen}
                         onChange={(e) => setNewWhen(e.target.value)}
                         name="when" />
                 </div>
@@ -128,6 +129,13 @@ const EditForm = ({ note
                     <textarea className="bg-slate-100/80 p-1" type="text" value={newSource}
                         onChange={(e) => setNewSource(e.target.value)}
                         name="source" />
+                </div>
+
+                <div className="flex flex-col">
+                    <label className="font-bold" htmlFor="img">Image URL</label>
+                    <input className="bg-slate-100/80 p-1" type="text" value={newImg}
+                        onChange={(e) => setNewImg(e.target.value)}
+                        name="img" />
                 </div>
 
                 <div className="flex flex-col">

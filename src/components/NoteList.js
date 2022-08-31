@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { db } from "../firebase";
 import { NoteContext } from "../context/NoteContext";
 import { onSnapshot, collection, query, deleteDoc, doc, updateDoc } from "firebase/firestore";
-import {useLoadScript} from "@react-google-maps/api"
+import { useLoadScript } from "@react-google-maps/api"
 import Map from "./MapContainer";
 
 import Autocomplete from "./Autocomplete";
@@ -33,13 +33,14 @@ const NoteList = () => {
     const [newTag, setNewTag] = useState("")
     const [newCoords, setNewCoords] = useState()
     const [newWhy, setNewWhy] = useState("")
+    const [newImg, setNewImg] = useState("")
 
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState("")
 
-    
+
     const [coords, setCoords] = useState()
-    
+
     const [address, setAddress] = useState("")
 
     // this useEffect makes it so that every render
@@ -60,7 +61,7 @@ const NoteList = () => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    
+
     const handleSelect = (e) => {
 
         setToEdit(e.target.id)
@@ -86,6 +87,7 @@ const NoteList = () => {
                 setNewTag(note.tag)
                 setNewCoords(note.coords)
                 setNewWhy(note.why)
+                setNewImg(note.img)
             }
         })
 
@@ -121,7 +123,8 @@ const NoteList = () => {
                     end: newEnd,
                     source: newSource,
                     tag: newTag,
-                    coords: newCoords
+                    coords: newCoords,
+                    img: newImg
                 }
             }
         }))
@@ -145,7 +148,8 @@ const NoteList = () => {
             end: newEnd,
             tag: newTag,
             source: newSource,
-            coords: newCoords
+            coords: newCoords,
+            img: newImg
         })
 
     };
@@ -174,6 +178,7 @@ const NoteList = () => {
                             newEnd={newEnd}
                             newSource={newSource}
                             newTag={newTag}
+                            newImg={newImg}
                             setNewEvent={setNewEvent}
                             setNewWhere={setNewWhere}
                             setNewWhen={setNewWhen}
@@ -184,6 +189,7 @@ const NoteList = () => {
                             setNewEnd={setNewEnd}
                             setNewSource={setNewSource}
                             setNewTag={setNewTag}
+                            setNewImg={setNewImg}
                             toEdit={toEdit}
                             setToEdit={setToEdit}
                             handleSubmit={handleSubmit}
@@ -193,6 +199,7 @@ const NoteList = () => {
                             setNewCoords={setNewCoords}
                             setAddress={setAddress}
                             isLoaded={isLoaded}
+
                         />
                     )
                 }
@@ -260,14 +267,14 @@ const NoteList = () => {
         || item.when.toString().includes(search)
         || item.tag.toLowerCase().includes(search.toLowerCase()));
 
-    
+
     const [libraries] = useState(["places"])
-    
-    
-    const {isLoaded} = useLoadScript({
+
+
+    const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.REACT_app_googleMapsApiKey,
         libraries
-    })     
+    })
 
     return (
         <div className="flex flex-col justify-start bg-trafalgar bg-no-repeat 
@@ -284,8 +291,8 @@ const NoteList = () => {
                     onChange={(e) => setSearch(e.target.value)} />
 
 
-                <select defaultValue={"default"} className="bg-zinc-500/80 text-zinc-100 w-full px-4" 
-                onChange={(e) => setSort(e.target.value)} name="sort" id="sort">
+                <select defaultValue={"default"} className="bg-zinc-500/80 text-zinc-100 w-full px-4"
+                    onChange={(e) => setSort(e.target.value)} name="sort" id="sort">
                     <option value="default" disabled>Sort by year</option>
                     <option value="desc">Descending</option>
                     <option value="asc">Ascending</option>
@@ -323,38 +330,42 @@ const NoteList = () => {
                     })}
 
                 </ul>
-            ):null}
-
-{(!isLoaded) ? (<div>loading...</div>) : 
-            <Map filtrd={filtrd} coords={{lat: 9.869370, lng: 46.171280}}/>}
+            ) : null}
 
 
-            {checked === false && (notes.length>0) ? (
+
+
+
+
+            {checked === false && (notes.length > 0) ? (
                 <div className="flex flex-col w-full lg:w-1/2 gap-2">
-                {filtrd.map((note) => {
-                    return (
-                        <div className="flex flex-col gap-2 
-                        p-2 bg-slate-200/70 shadow-lg" key={note.id}>
-                            <p className="font-bold">{note.event} </p>
-                            <p>{note.when}</p>
-                            <ul className="flex gap-2">
-                                {Array.from(note.tag.toLowerCase().split(",")).map((t, index) => {
-                                    return (
-                                        <li key={index} className="bg-blue-300 list-item px-2 text-sm rounded-lg w-fit">{t}</li>
-                                    )
-                                })}
-                            </ul>
-                            <div className="flex gap-2">
-                                <button className="hover:bg-green-300 w-fit px-3 bg-green-100/70" onClick={handleSelect} name={note.event} id={note.id}>Edit</button>
-                                <button className="hover:bg-red-300 bg-red-100/70 w-fit px-3 " onClick={() => handleDelete(note.id)} id={note.id}>Delete</button>
-                            </div>
+                    {filtrd.map((note) => {
 
-                        </div>
-                    )
-                })}
-            </div>
-            ):null}
-            
+                        return (
+                            <div className="flex flex-col gap-2 
+                        p-2 bg-slate-200/80 bg-blend-soft-light bg-cover bg-center shadow-lg"
+                                style={(note.img) ? { backgroundImage: `url(${note.img})` } : {}}
+                                key={note.id}>
+                                <p className="font-bold">{note.event} </p>
+                                <p>{note.when}</p>
+                                <ul className="flex gap-2">
+                                    {Array.from(note.tag.toLowerCase().split(",")).map((t, index) => {
+                                        return (
+                                            <li key={index} className="bg-blue-300 list-item px-2 text-sm rounded-lg w-fit">{t}</li>
+                                        )
+                                    })}
+                                </ul>
+                                <div className="flex gap-2">
+                                    <button className="hover:bg-green-300 w-fit px-3 bg-green-100/90" onClick={handleSelect} name={note.event} id={note.id}>Edit</button>
+                                    <button className="hover:bg-red-300 bg-red-100/90 w-fit px-3 " onClick={() => handleDelete(note.id)} id={note.id}>Delete</button>
+                                </div>
+
+                            </div>
+                        )
+                    })}
+                </div>
+            ) : null}
+
 
 
             {(toEdit) ? (
@@ -362,14 +373,18 @@ const NoteList = () => {
                     {displayEvents()}
                 </div>
             )
-            :null}
+                : null}
 
-            
+            <div className="mt-4">Refresh the page if the events are not being displayed correctly in the map</div>
 
-            {(checked) === true && (notes.length>0) ? (
+            {(!isLoaded) ? (<div>loading...</div>) :
+                <Map filtrd={filtrd} coords={{ lat: 9.869370, lng: 46.171280 }} />}
+
+
+            {(checked) === true && (notes.length > 0) ? (
                 <Timeline filtrd={filtrd} />
-            ):null}
-            
+            ) : null}
+
 
             {/* <Autocomplete isLoaded={isLoaded}/> */}
 

@@ -305,13 +305,11 @@ const NoteList = () => {
                 </div>
             </div>
 
-            <input className="px-6 py-1 text-center bg-zinc-100/80" type="text" placeholder="event, year or tag"
+            <input className="px-4 py-1 text-center bg-zinc-100/80" type="text" placeholder="event, year or tag"
                 onClick={() => setToEdit("") && setSearch("")}
                 onChange={(e) => setSearch(e.target.value)} />
 
             <div className="flex flex-col sm:flex-row gap-4 w-fit">
-
-
 
                 <select defaultValue={"default"} className="bg-zinc-500/80 text-zinc-100 px-4"
                     onChange={(e) => setSort(e.target.value)} name="sort" id="sort">
@@ -371,7 +369,7 @@ const NoteList = () => {
 
                         return (
                             <div className="flex flex-col
-                        p-6 bg-slate-200/80 bg-blend-soft-light bg-cover bg-center shadow-lg"
+                        p-6 bg-slate-200/80 bg-blend-soft-light bg-cover bg-center shadow-sm"
                                 style={(note.img) ? { backgroundImage: `url(${note.img})` } : {}}
                                 key={note.id}>
 

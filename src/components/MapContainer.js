@@ -1,6 +1,5 @@
 import {GoogleMap, MarkerF, OverlayView, InfoBoxF} from "@react-google-maps/api"
 import { useEffect, useState } from "react"
-import marker from "../img/marker.svg"
 
 
 const Map = ({filtrd}) => {
@@ -46,18 +45,11 @@ const Map = ({filtrd}) => {
 
         setCenterLat(maxLat -  ((maxLat - minLat) / 2))
         setCenterLong(maxLong -  ((maxLong - minLong) / 2))
-
-        console.log(minLat)
-        console.log(minLong)
-        console.log(maxLat)
-        console.log(maxLong)
-        console.log(centerLat)
-        console.log(centerLong)
     }
     
     useEffect(()=>{
         getCenter()
-    })
+    }, [filtrd])
 
     const center = {lat: centerLat, lng: centerLong}
 

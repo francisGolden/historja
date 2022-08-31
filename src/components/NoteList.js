@@ -5,7 +5,6 @@ import { onSnapshot, collection, query, deleteDoc, doc, updateDoc } from "fireba
 import { useLoadScript } from "@react-google-maps/api"
 import Map from "./MapContainer";
 
-import Autocomplete from "./Autocomplete";
 
 
 
@@ -19,6 +18,8 @@ const NoteList = () => {
 
     const [checked, setChecked] = useState(false)
     const [seeMap, setSeeMap] = useState(false)
+
+    const [seeTags, setSeeTags] = useState(false)
 
     const [toEdit, setToEdit] = useState("")
 
@@ -247,6 +248,7 @@ const NoteList = () => {
     }
 
     let arr = new Set();
+    let peopleArr = new Set()
 
     const getTags = () => {
         notes.map((note) => {
@@ -258,8 +260,19 @@ const NoteList = () => {
         return Array.from(arr)
     };
 
+    const getNames = () => {
+        notes.map((note) => {
+            return (Array.from(note.who.toLowerCase().trim().replace(/\s*\,\s*/g, ",").split(",").map((t) => {
+                peopleArr.add(t)
+            })))
+        })
+
+        return Array.from(peopleArr)
+    }
+
     useEffect(() => {
         getTags()
+        getNames()
     }, [notes])
 
     const filtrd = notes.filter(item =>
@@ -276,24 +289,33 @@ const NoteList = () => {
         libraries
     })
 
+    const handleTags = () => {
+        setSeeTags(!seeTags)
+    }
+
     return (
         <div className="flex flex-col justify-start bg-trafalgar bg-no-repeat 
         bg-cover p-3 bg-blend-soft-light
         items-center flex-1 text-2xl bg-slate-300 gap-5">
 
 
+            <div className=" text-7xl font-bold mt-4 mb-4">
+                <div className="p-4 bg-clip-text text-center text-transparent bg-gradient-to-r from-slate-400 to-slate-600 ">
+                    <h1>My Events</h1>
+                </div>
+            </div>
 
-            <h1 className="text-6xl my-5 font-bold">My Events</h1>
+            <input className="px-6 py-1 text-center bg-zinc-100/80" type="text" placeholder="event, year or tag"
+                onClick={() => setToEdit("") && setSearch("")}
+                onChange={(e) => setSearch(e.target.value)} />
 
-            <div className="flex flex-col sm:flex-row gap-2 w-fit">
-                <input className="px-2 py-1 text-center bg-zinc-100/80" type="text" placeholder="event, year or tag"
-                    onClick={() => setToEdit("") && setSearch("")}
-                    onChange={(e) => setSearch(e.target.value)} />
+            <div className="flex flex-col sm:flex-row gap-4 w-fit">
 
 
-                <select defaultValue={"default"} className="bg-zinc-500/80 text-zinc-100 w-full px-4"
+
+                <select defaultValue={"default"} className="bg-zinc-500/80 text-zinc-100 px-4"
                     onChange={(e) => setSort(e.target.value)} name="sort" id="sort">
-                    <option value="default" disabled>Sort by year</option>
+                    <option value="default" disabled>Sort</option>
                     <option value="desc">Descending</option>
                     <option value="asc">Ascending</option>
                 </select>
@@ -302,12 +324,22 @@ const NoteList = () => {
                     <div>Edit/Timeline</div>
                     <Switch onChange={handleToggle} checked={checked} />
                 </label>
+            </div>
 
+            <div className="flex justify-center items-center gap-1">
+
+                {(seeTags) ? (<button onClick={handleTags} className="w-fit px-2 shadow-lg sm:hover:animate-pulse 
+                sm:hover:bg-red-100 bg-red-200 transition-colors">
+                    Hide tags
+                </button>) : <button onClick={handleTags} className="w-fit px-2 shadow-lg sm:hover:animate-pulse 
+                sm:hover:bg-slate-100 bg-slate-200 transition-colors">
+                    Show tags
+                </button>}
 
             </div>
 
 
-            {(arr) ? (
+            {(arr && seeTags) ? (
                 <ul className="grid grid-cols-2 lg:grid-cols-3 w-full lg:w-1/3 items-center gap-2">
 
                     <li onClick={() => setSearch("")}
@@ -333,31 +365,39 @@ const NoteList = () => {
             ) : null}
 
 
-
-
-
-
             {checked === false && (notes.length > 0) ? (
                 <div className="flex flex-col w-full lg:w-1/2 gap-2">
                     {filtrd.map((note) => {
 
                         return (
-                            <div className="flex flex-col gap-2 
-                        p-2 bg-slate-200/80 bg-blend-soft-light bg-cover bg-center shadow-lg"
+                            <div className="flex flex-col
+                        p-6 bg-slate-200/80 bg-blend-soft-light bg-cover bg-center shadow-lg"
                                 style={(note.img) ? { backgroundImage: `url(${note.img})` } : {}}
                                 key={note.id}>
-                                <p className="font-bold">{note.event} </p>
+
+
+                                <p className="text-4xl font-bold">{note.event} </p>
                                 <p>{note.when}</p>
-                                <ul className="flex gap-2">
+                                <ul className="flex gap-2 py-1">
                                     {Array.from(note.tag.toLowerCase().split(",")).map((t, index) => {
                                         return (
                                             <li key={index} className="bg-blue-300 list-item px-2 text-sm rounded-lg w-fit">{t}</li>
                                         )
                                     })}
                                 </ul>
+                                <ul className="flex gap-2 py-1 mb-6">
+                                    {Array.from(note.who.toLowerCase().split(",")).map((t, index) => {
+                                        return (
+                                            <li key={index} className="bg-yellow-300 list-item px-2 text-sm rounded-lg w-fit">{t}</li>
+                                        )
+                                    })}
+                                </ul>
                                 <div className="flex gap-2">
-                                    <button className="hover:bg-green-300 w-fit px-3 bg-green-100/90" onClick={handleSelect} name={note.event} id={note.id}>Edit</button>
-                                    <button className="hover:bg-red-300 bg-red-100/90 w-fit px-3 " onClick={() => handleDelete(note.id)} id={note.id}>Delete</button>
+                                    <button className="hover:bg-green-300 w-fit px-3 border-2 border-stone-500 bg-zinc-100/80"
+                                        onClick={handleSelect} name={note.event} id={note.id}>Edit</button>
+
+                                    <button className="hover:bg-red-300 border-2 border-stone-500 bg-zinc-100/80 w-fit px-3 "
+                                        onClick={() => handleDelete(note.id)} id={note.id}>Delete</button>
                                 </div>
 
                             </div>
@@ -375,14 +415,34 @@ const NoteList = () => {
             )
                 : null}
 
-            <div className="mt-4">Refresh the page if the events are not being displayed correctly in the map</div>
+
+
+
 
             {(!isLoaded) ? (<div>loading...</div>) :
-                <Map filtrd={filtrd} coords={{ lat: 9.869370, lng: 46.171280 }} />}
+
+                <div className="font-bold flex flex-col  decoration-green-500 items-center justify-center 
+                text-4xl border-slate-500 w-full">
+                    <div className="p-4 bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-sky-400 ">
+                        <h1>Map</h1>
+                    </div>
+
+                    <Map filtrd={filtrd} coords={{ lat: 9.869370, lng: 46.171280 }} />
+                    <p className="text-xl text-center">Refresh the page if the events are not being displayed correctly in the map</p>
+                </div>
+
+            }
 
 
             {(checked) === true && (notes.length > 0) ? (
-                <Timeline filtrd={filtrd} />
+                <div className="font-bold flex flex-col items-center
+                 justify-center text-4xl border-slate-500 w-full">
+                    <div className="p-4 bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-sky-600">
+                        <h1>Timeline</h1>
+                    </div>
+                    <Timeline filtrd={filtrd} />
+                </div>
+
             ) : null}
 
 

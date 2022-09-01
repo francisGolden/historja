@@ -39,6 +39,8 @@ const NoteList = () => {
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState("")
 
+    const [showAll, setShowAll] = useState(false)
+
 
     const [coords, setCoords] = useState()
 
@@ -278,7 +280,8 @@ const NoteList = () => {
     const filtrd = notes.filter(item =>
         item.event.toLowerCase().includes(search.toLowerCase())
         || item.when.toString().includes(search)
-        || item.tag.toLowerCase().includes(search.toLowerCase()));
+        || item.tag.toLowerCase().includes(search.toLowerCase())
+        || item.where.toLowerCase().includes(search.toLowerCase()));
 
 
     const [libraries] = useState(["places"])
@@ -305,7 +308,8 @@ const NoteList = () => {
                 </div>
             </div>
 
-            <input className="px-4 py-1 text-center bg-zinc-100/80" type="text" placeholder="event, year or tag"
+            <input className="py-1 text-center bg-zinc-100/80"
+                type="text" placeholder="event, year, location or tag"
                 onClick={() => setToEdit("") && setSearch("")}
                 onChange={(e) => setSearch(e.target.value)} />
 
@@ -341,7 +345,7 @@ const NoteList = () => {
                 <ul className="grid grid-cols-2 lg:grid-cols-3 w-full lg:w-1/3 items-center gap-2">
 
                     <li onClick={() => setSearch("")}
-                        className="cursor-pointer shadow-sm text-white 
+                        className="cursor-pointer shadow-sm text-white max-h-[30px]
             font-bold bg-zinc-600/70 list-item px-2 text-xl rounded-lg"
                     >
                         All events
@@ -350,7 +354,7 @@ const NoteList = () => {
                     {getTags().map((t, index) => {
                         return (
                             <li id={t} key={index}
-                                className=" odd:bg-slate-400/70 font-bold
+                                className=" odd:bg-slate-400/70 font-bold max-h-[30px] truncate
                                     even:bg-slate-400/70 shadow-sm cursor-pointer
                         text-slate-100 list-item px-2 text-xl rounded-lg"
                                 onClick={(e) => setSearch(e.target.id)}>
@@ -379,14 +383,14 @@ const NoteList = () => {
                                 <ul className="flex gap-2 py-1">
                                     {Array.from(note.tag.toLowerCase().split(",")).map((t, index) => {
                                         return (
-                                            <li key={index} className="bg-blue-300 list-item px-2 text-sm rounded-lg w-fit">{t}</li>
+                                            <li key={index} className="bg-blue-300 list-item px-2 text-sm rounded-lg max-h-[20px] truncate">{t}</li>
                                         )
                                     })}
                                 </ul>
                                 <ul className="flex gap-2 py-1 mb-6">
                                     {Array.from(note.who.toLowerCase().split(",")).map((t, index) => {
                                         return (
-                                            <li key={index} className="bg-yellow-300 list-item px-2 text-sm rounded-lg w-fit">{t}</li>
+                                            <li key={index} className="bg-yellow-300 list-item px-2 text-sm rounded-lg max-h-[20px] truncate">{t}</li>
                                         )
                                     })}
                                 </ul>

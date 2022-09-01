@@ -49,6 +49,7 @@ const Map = ({filtrd}) => {
     
     useEffect(()=>{
         getCenter()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filtrd])
 
     const center = {lat: centerLat, lng: centerLong}
@@ -62,7 +63,7 @@ const Map = ({filtrd}) => {
             return (
                 <MarkerF animation={2} 
                 label={{text:`${event.event} (${event.when})`, 
-                className: "p-1 border-2 shadow-lg border-black rounded bg-zinc-100/90 font-bold text-white"}} 
+                className: "p-1 border-2 border-black bg-gradient-to-r from-cyan-500/90 to-blue-500/90 rounded font-bold text-white"}} 
                 key={event.id} 
                 position={event.coords}>
 

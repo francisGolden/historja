@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useState, useEffect } from "react";
 import { db } from "../firebase";
 import { NoteContext } from "../context/NoteContext";
@@ -17,6 +18,7 @@ const NoteList = () => {
     const { notes, setNotes } = useContext(NoteContext);
 
     const [checked, setChecked] = useState(false)
+    // eslint-disable-next-line no-unused-vars
     const [seeMap, setSeeMap] = useState(false)
 
     const [seeTags, setSeeTags] = useState(false)
@@ -39,9 +41,11 @@ const NoteList = () => {
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState("")
 
-    const [showAll, setShowAll] = useState(false)
+    // eslint-disable-next-line no-unused-vars
+    const [showEvent, setShowEvent] = useState("")
 
 
+    // eslint-disable-next-line no-unused-vars
     const [coords, setCoords] = useState()
 
     const [address, setAddress] = useState("")
@@ -163,6 +167,7 @@ const NoteList = () => {
 
     const displayEvents = () => {
         return (
+            // eslint-disable-next-line array-callback-return
             notes.map((note, index) => {
                 if (note.id === toEdit) {
                     return (
@@ -254,6 +259,7 @@ const NoteList = () => {
 
     const getTags = () => {
         notes.map((note) => {
+            // eslint-disable-next-line no-useless-escape, array-callback-return
             return (Array.from(note.tag.toLowerCase().trim().replace(/\s*\,\s*/g, ",").split(",").map((t) => {
                 arr.add(t)
             })))
@@ -264,6 +270,7 @@ const NoteList = () => {
 
     const getNames = () => {
         notes.map((note) => {
+            // eslint-disable-next-line no-useless-escape, array-callback-return
             return (Array.from(note.who.toLowerCase().trim().replace(/\s*\,\s*/g, ",").split(",").map((t) => {
                 peopleArr.add(t)
             })))
@@ -294,6 +301,14 @@ const NoteList = () => {
 
     const handleTags = () => {
         setSeeTags(!seeTags)
+    }
+
+    const handleShowEvent = (id) => {
+        if ((showEvent) === (id)) {
+            setShowEvent("")
+        } else {
+            setShowEvent(id)
+        }
     }
 
     return (
@@ -368,14 +383,16 @@ const NoteList = () => {
 
 
             {checked === false && (notes.length > 0) ? (
-                <div className="flex flex-col w-full lg:w-1/2 gap-2">
+                <div className="flex flex-col w-full lg:w-1/2 gap-2 ">
                     {filtrd.map((note) => {
-
                         return (
                             <div className="flex flex-col
                         p-6 bg-slate-200/80 bg-blend-soft-light bg-cover bg-center shadow-sm"
                                 style={(note.img) ? { backgroundImage: `url(${note.img})` } : {}}
-                                key={note.id}>
+
+                                key={note.id}
+                                id={note.id}
+                            >
 
 
                                 <p className="text-4xl font-bold">{note.event} </p>
@@ -394,13 +411,111 @@ const NoteList = () => {
                                         )
                                     })}
                                 </ul>
-                                <div className="flex gap-2">
-                                    <button className="hover:bg-green-300 w-fit px-3 border-2 border-stone-500 bg-zinc-100/80"
-                                        onClick={handleSelect} name={note.event} id={note.id}>Edit</button>
 
-                                    <button className="hover:bg-red-300 border-2 border-stone-500 bg-zinc-100/80 w-fit px-3 "
-                                        onClick={() => handleDelete(note.id)} id={note.id}>Delete</button>
+                                {(showEvent === note.id) ? (
+                                    <div className="flex flex-col mb-4
+                                     p-2 rounded gap-4">
+
+                                        <div className="flex flex-col">
+
+                                            <h1 className="font-bold px-4">Where did the event take place?</h1>
+                                            <div className="flex flex-col bg-slate-100/60 border-2 border-slate-500
+                                            p-4">
+
+                                                <p style={{ whiteSpace: 'break-spaces' }}>{note.where.split(",")[0]}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-col">
+                                            <h1 className="font-bold px-4">When did it happen?</h1>
+                                            <div className="flex flex-col bg-slate-100/60 border-2 border-slate-500
+                                         p-4">
+                                                <p style={{ whiteSpace: 'break-spaces' }}>{note.when}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-col">
+                                            <h1 className="font-bold px-4">Why?</h1>
+                                            <div className="flex flex-col bg-slate-100/60 border-2 border-slate-500
+                                         p-4">
+
+                                                <p style={{ whiteSpace: 'break-spaces' }}>{note.why}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-col">
+                                            <h1 className="font-bold px-4">Who are the people/groups involved?</h1>
+                                            <div className="flex flex-col bg-slate-100/60 border-2 border-slate-500
+                                         p-4">
+
+                                                <p style={{ whiteSpace: 'break-spaces' }}>{note.who}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-col">
+                                            <h1 className="font-bold px-4">How did it start?</h1>
+                                            <div className="flex flex-col bg-slate-100/60 border-2 border-slate-500
+                                         p-4">
+
+                                                <p style={{ whiteSpace: 'break-spaces' }}>{note.beginning}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-col">
+                                            <h1 className="font-bold px-4">How did it develop?</h1>
+                                            <div className="flex flex-col bg-slate-100/60 border-2 border-slate-500
+                                         p-4">
+
+                                                <p style={{ whiteSpace: 'break-spaces' }}>{note.unfold}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-col">
+                                            <h1 className="font-bold px-4">How and why did it end?</h1>
+                                            <div className="flex flex-col bg-slate-100/60 border-2 border-slate-500
+                                            p-4">
+
+                                                <p style={{ whiteSpace: 'break-spaces' }}>{note.end}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-col">
+                                            <h1 className="font-bold px-4">What sources did you use?</h1>
+                                            <div className="flex flex-col bg-slate-100/60 border-2 border-slate-500
+                                         p-4">
+
+                                                <p style={{ whiteSpace: 'break-spaces' }}>{note.source}</p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                ) : null}
+
+                                <div className="flex justify-between gap-2">
+                                    <div className="flex gap-2">
+                                        <button className="hover:bg-green-300 w-fit px-3 border-2 border-stone-500 bg-zinc-100/80"
+                                            onClick={handleSelect} name={note.event} id={note.id}>
+                                            Edit
+                                        </button>
+
+                                        <button className="hover:bg-red-300 border-2 border-stone-500 bg-zinc-100/80 w-fit px-3 "
+                                            onClick={() => handleDelete(note.id)} id={note.id}>
+                                            Delete
+                                        </button>
+                                    </div>
+
+                                    <div>
+                                        <button className="hover:bg-blue-300 border-2 border-stone-500 bg-zinc-100/80 w-fit px-3 "
+                                            onClick={() => handleShowEvent(note.id)}>
+                                            {(showEvent) === note.id ? ("Shrink") : ("Expand")}
+                                        </button>
+                                    </div>
+
                                 </div>
+
+
+
 
                             </div>
                         )

@@ -397,14 +397,14 @@ const NoteList = () => {
 
                                 <p className="text-4xl font-bold">{note.event} </p>
                                 <p>{note.when}</p>
-                                <ul className="flex gap-2 py-1">
+                                <ul className="flex w-[400px] gap-2 py-1">
                                     {Array.from(note.tag.toLowerCase().split(",")).map((t, index) => {
                                         return (
-                                            <li key={index} className="bg-blue-300 list-item px-2 text-sm rounded-lg max-h-[20px] truncate">{t}</li>
+                                            <li key={index} className="bg-blue-300 list-item px-2 w-fit text-sm rounded-lg max-h-[20px] truncate">{t}</li>
                                         )
                                     })}
                                 </ul>
-                                <ul className="flex gap-2 py-1 mb-6">
+                                <ul className="flex w-[400px] gap-2 py-1 mb-6">
                                     {Array.from(note.who.toLowerCase().split(",")).map((t, index) => {
                                         return (
                                             <li key={index} className="bg-yellow-300 list-item px-2 text-sm rounded-lg max-h-[20px] truncate">{t}</li>

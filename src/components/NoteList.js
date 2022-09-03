@@ -334,7 +334,7 @@ const NoteList = () => {
 
                 <select defaultValue={"default"} className="bg-zinc-500/80 text-zinc-100 px-4"
                     onChange={(e) => setSort(e.target.value)} name="sort" id="sort">
-                    <option value="default" disabled>Sort</option>
+                    <option value="default" disabled>Sort by year</option>
                     <option value="desc">Descending</option>
                     <option value="asc">Ascending</option>
                 </select>
@@ -406,13 +406,13 @@ const NoteList = () => {
                                         )
                                     })}
                                 </ul> */}
-                                <ul className="flex py-1 gap-2 mb-6">
+                                {/* <ul className="flex py-1 gap-2 mb-6">
                                     {Array.from(note.who.toLowerCase().split(",")).map((t, index) => {
                                         return (
                                             <li key={index} className="bg-yellow-300 list-item px-2 text-sm rounded-lg max-h-[20px] w-fit truncate">{t}</li>
                                         )
                                     })}
-                                </ul>
+                                </ul> */}
 
                                 {(showEvent === note.id) ? (
                                     <div className="flex flex-col mb-4

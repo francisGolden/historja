@@ -78,7 +78,7 @@ const Notes = () => {
     }, [])
 
         // this useEffect makes it so that every render
-    // the firebase database is Synced with the notes state
+    // the firebase database is Synced with the character state
     // it also manages the loading spinner
     useEffect(() => {
         setLoading(true)
@@ -194,6 +194,7 @@ const Notes = () => {
 
     useEffect(()=>{
         console.log(notes)
+        console.log(chars)
     })
 
     return (
@@ -217,7 +218,7 @@ const Notes = () => {
                 : null}
 
             {(showCreateEvent) ? (
-                <form className="flex flex-col w-full" onSubmit={handleNew}>
+                <form className="flex items-center flex-col w-full" onSubmit={handleNew}>
                     <div className="flex flex-col w-full lg:w-1/2 gap-6">
                         <div className="flex flex-col gap-2 w-full p-2 bg-slate-200/70">
                             <h2 className="">What is the event we are talking about?</h2>
@@ -345,7 +346,7 @@ const Notes = () => {
                 : null}
 
             {(showCreateChar) ? (
-                <form className="flex flex-col w-full" onSubmit={handleNewChar}>
+                <form className="flex flex-col items-center w-full" onSubmit={handleNewChar}>
                     <div className="flex flex-col w-full lg:w-1/2 gap-6">
                         <div className="flex flex-col gap-2 w-full p-2 bg-slate-200/70">
                             <h2 className="">What is the name of the person we are talking about?</h2>
@@ -389,7 +390,7 @@ const Notes = () => {
                             </div>
 
                             <div className="flex flex-col">
-                                <label className="font-bold" htmlFor="marital">Marital</label>
+                                <label className="font-bold" htmlFor="marital">Husband/Wife</label>
                                 <textarea className="bg-slate-100/80 p-1" value={marital} required
                                     placeholder="Caterina de' Medici"
                                     onChange={(e) => { setMarital(e.target.value) }} type="text" name="marital" />
@@ -400,7 +401,7 @@ const Notes = () => {
                         <div id="evo" className="flex flex-col gap-2 w-full p-2 bg-slate-200/70">
 
                             <div className="flex flex-col">
-                                <label className="font-bold" htmlFor="gender">gender</label>
+                                <label className="font-bold" htmlFor="gender">Gender</label>
                                 <textarea className="bg-slate-100/80 p-1" required
                                     placeholder="Male" value={gender}
                                     onChange={(e) => { setGender(e.target.value) }} type="text" name="gender" />
@@ -408,14 +409,14 @@ const Notes = () => {
 
 
                             <div className="flex flex-col">
-                                <label className="font-bold" htmlFor="family">family</label>
+                                <label className="font-bold" htmlFor="family">Family</label>
                                 <textarea className="bg-slate-100/80 p-1" required
                                     placeholder="Medici" value={family}
                                     onChange={(e) => { setFamily(e.target.value) }} type="text" name="family" />
                             </div>
 
                             <div className="flex flex-col">
-                                <label className="font-bold" htmlFor="religion">religion</label>
+                                <label className="font-bold" htmlFor="religion">Religion</label>
                                 <textarea className="bg-slate-100/80 p-1" required
                                     placeholder="Catholicism" value={religion}
                                     onChange={(e) => { setReligion(e.target.value) }} type="text" name="religion" />
@@ -427,7 +428,7 @@ const Notes = () => {
                         <div id="end" className="flex flex-col gap-2 w-full p-2 bg-slate-200/70">
 
                             <div className="flex flex-col">
-                                <label className="font-bold" htmlFor="role">role</label>
+                                <label className="font-bold" htmlFor="role">Role</label>
                                 <textarea className="bg-slate-100/80 p-1" required
                                     placeholder="King of France" value={role}
                                     onChange={(e) => { setRole(e.target.value) }} type="text" name="role" />
@@ -441,21 +442,21 @@ const Notes = () => {
                             </div>
 
                             <div className="flex flex-col">
-                                <label className="font-bold" htmlFor="events">eventss</label>
+                                <label className="font-bold" htmlFor="events">Events</label>
                                 <textarea className="bg-slate-100/80 p-1"
                                     placeholder="Vienna, Garibaldi, Early Modern, .." value={events}
                                     onChange={(e) => { setEvents(e.target.value) }} type="text" name="events" />
                             </div>
 
                             <div className="flex flex-col">
-                                <label className="font-bold" htmlFor="deathDate">deathDates</label>
+                                <label className="font-bold" htmlFor="deathDate">Death Date</label>
                                 <textarea className="bg-slate-100/80 p-1"
                                     value={deathDate}
                                     onChange={(e) => { setDeathDate(e.target.value) }} type="date" name="events" />
                             </div>
 
                             <div className="flex flex-col">
-                                <label className="font-bold" htmlFor="deathPlace">deathPlaces</label>
+                                <label className="font-bold" htmlFor="deathPlace">Death Place</label>
                                 <textarea className="bg-slate-100/80 p-1"
                                     placeholder="Vienna" value={deathPlace}
                                     onChange={(e) => { setDeathPlace(e.target.value) }} 

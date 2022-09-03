@@ -49,7 +49,7 @@ const NavBar = () => {
                         <Link 
                         className="flex items-center gap-1" 
                         to="/new">
-                            Create event
+                            Create
                             <IoIosCreate color="white" size={28}/>
                         </Link>
                     </button>

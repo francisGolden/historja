@@ -15,7 +15,7 @@ import Timeline from "./Timeline";
 import Switch from "react-switch";
 
 const NoteList = () => {
-    const { notes, setNotes } = useContext(NoteContext);
+    const { notes, setNotes,} = useContext(NoteContext);
 
     const [checked, setChecked] = useState(false)
     // eslint-disable-next-line no-unused-vars
@@ -311,6 +311,8 @@ const NoteList = () => {
         }
     }
 
+    console.log(notes)
+
     return (
         <div className="flex flex-col justify-start bg-trafalgar bg-no-repeat 
         bg-cover p-3 bg-blend-soft-light
@@ -397,17 +399,17 @@ const NoteList = () => {
 
                                 <p className="text-4xl font-bold">{note.event} </p>
                                 <p>{note.when}</p>
-                                <ul className="flex w-[400px] gap-2 py-1">
+                                {/* <ul className="flex gap-2 py-1">
                                     {Array.from(note.tag.toLowerCase().split(",")).map((t, index) => {
                                         return (
                                             <li key={index} className="bg-blue-300 list-item px-2 w-fit text-sm rounded-lg max-h-[20px] truncate">{t}</li>
                                         )
                                     })}
-                                </ul>
-                                <ul className="flex w-[400px] gap-2 py-1 mb-6">
+                                </ul> */}
+                                <ul className="flex py-1 gap-2 mb-6">
                                     {Array.from(note.who.toLowerCase().split(",")).map((t, index) => {
                                         return (
-                                            <li key={index} className="bg-yellow-300 list-item px-2 text-sm rounded-lg max-h-[20px] truncate">{t}</li>
+                                            <li key={index} className="bg-yellow-300 list-item px-2 text-sm rounded-lg max-h-[20px] w-fit truncate">{t}</li>
                                         )
                                     })}
                                 </ul>

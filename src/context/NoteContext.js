@@ -6,9 +6,11 @@ export const NoteProvider = ({children}) => {
 
     const [notes, setNotes] = useState([]);
 
+    const [chars, setChars] = useState([])
+
 
     return (
-        <NoteContext.Provider value={{notes, setNotes}}>
+        <NoteContext.Provider value={{notes, setNotes, chars, setChars}}>
             {children}
         </NoteContext.Provider>
     )

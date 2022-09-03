@@ -139,14 +139,15 @@ const FlashCard = () => {
 
     return (
         <div className="flex flex-col justify-center bg-cardsharps bg-no-repeat 
-        bg-cover p-3 bg-blend-soft-light
-        items-center flex-1 text-2xl bg-slate-300 gap-5">
+        bg-cover p-2 bg-blend-soft-light
+        items-center flex-1 text-2xl bg-slate-300 gap-2">
 
             <div className="flex flex-col text-center rounded-xl 
             justify-start items-center
-             bg-slate-500/90 w-[400px] border-8 border-black p-3 h-5/6">
+             bg-slate-500/90 w-[330px] border-4 border-black p-1 h-5/6">
 
-                {playing === false ? (<h2 className="text-3xl p-3">Select the event <br></br>and press <b>PLAY</b></h2>) :
+                {playing === false ? (<h2 className="text-2xl p-1">Select the event 
+                <br></br>and press <b>PLAY</b></h2>) :
                     <p className="font-bold mb-3 text-3xl p-3">{what.toUpperCase()}</p>
                 }
 

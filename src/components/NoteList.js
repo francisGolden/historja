@@ -13,7 +13,7 @@ import {
 import { useLoadScript } from "@react-google-maps/api";
 import Map from "./MapContainer";
 import { UserAuth } from "../context/AuthContext";
-
+import { Link } from "react-router-dom";
 import EditForm from "./EditForm";
 import sortArray from "sort-array";
 import Timeline from "./Timeline";
@@ -580,12 +580,22 @@ const NoteList = () => {
         <div className="flex w-full lg:w-1/2">{displayEvents()}</div>
       ) : null}
 
+      {notes.length === 0 ? (
+        <p className="text-center">
+          There's nothing here yet. <br></br>
+          Go <Link to="/new" className="underline">here</Link> and create your
+          first note
+        </p>
+      ) : null}
+
       <div
         className="flex justify-center text-blue-500
       font-bold text-5xl w-full"
       >
         <button
-          onClick={() => {setSeeMap(!seeMap)}}
+          onClick={() => {
+            setSeeMap(!seeMap);
+          }}
           className="bg-slate-200/50 hover:bg-slate-100/60 p-4 w-full"
           id="map"
         >
@@ -598,7 +608,7 @@ const NoteList = () => {
           className="font-bold flex flex-col  decoration-green-500 items-center justify-center 
                 text-4xl border-slate-500 w-full"
         >
-                    <div className="p-4 bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-sky-600">
+          <div className="p-4 bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-sky-600">
             <h1>Map</h1>
           </div>
           <Map filtrd={filtrd} />

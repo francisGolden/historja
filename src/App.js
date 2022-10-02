@@ -9,19 +9,21 @@ import { NoteProvider } from "./context/NoteContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FlashCard from "./components/FlashCard";
 import NoteList from "./components/NoteList";
+import Forgot from "./components/Forgot";
 
 
 function App() {
 
 
   return (
-    <NoteProvider>
-      <AuthContextProvider>
+    <AuthContextProvider>
+      <NoteProvider>
         <div className="flex flex-col h-screen text-slate-800">
           <NavBar />
           <Routes>
             <Route path="/" element={<SignIn />} />
-            {/* <Route path="/signup" element={<SignUp />} /> */}
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forgot-password" element={<Forgot />} />
             <Route path="/account" element={<ProtectedRoute>
               <Account />
               </ProtectedRoute>} />
@@ -31,16 +33,13 @@ function App() {
             <Route path="/new" element={<ProtectedRoute>
               <Notes />
               </ProtectedRoute>} />
-            {/* <Route path="/edit" element={<ProtectedRoute>
-              <EditNote />
-              </ProtectedRoute>} /> */}
             <Route path="/flash" element={<ProtectedRoute>
               <FlashCard />
               </ProtectedRoute>} />
           </Routes>
         </div>
-      </AuthContextProvider>
-    </NoteProvider>
+      </NoteProvider>
+    </AuthContextProvider>
   );
 }
 

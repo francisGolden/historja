@@ -18,14 +18,11 @@ const NavBar = () => {
       let msg = user.email;
       await logout();
       navigate("/");
-      console.log(msg + " has logged out");
-    } catch (e) {
-      console.log(e.message);
-    }
+    } catch (e) {}
   };
 
   // Only show the nav if the user is logged in
-  if (nav === true) {
+  if (nav === true && user.emailVerified) {
     return (
       <div
         className="shadow-md flex flex-col md:flex-row 
@@ -34,17 +31,22 @@ const NavBar = () => {
       >
         <div className="flex gap-2 justify-start items-center">
           <button>
-            <Link className="flex items-center h-[60px] md:h-[60px]  bg-slate-200 p-2 leading-none
-            rounded" 
-            to="/notes">
+            <Link
+              className="flex items-center h-[60px] md:h-[60px]  bg-slate-200 p-2 leading-none
+            rounded"
+              to="/notes"
+            >
               My events
               <IoMdAlbums color="white" size={28} />
             </Link>
           </button>
 
           <button>
-            <Link className="flex items-center h-[60px] md:h-[60px] bg-slate-200 p-2 gap-1 
-            rounded" to="/new">
+            <Link
+              className="flex items-center h-[60px] md:h-[60px] bg-slate-200 p-2 gap-1 
+            rounded"
+              to="/new"
+            >
               Create
               <IoIosCreate color="white" size={28} />
             </Link>
@@ -60,25 +62,27 @@ const NavBar = () => {
                     </button> */}
 
           <button>
-            <Link className="flex items-center h-[60px] leading-none md:h-[60px] bg-slate-200 p-2 gap-1 
-            rounded"  to="/flash">
-              Flash card
+            <Link
+              className="flex items-center h-[60px] leading-none md:h-[60px] bg-slate-200 p-2 gap-1 
+            rounded"
+              to="/flash"
+            >
+              Flash cards
               <GiCardExchange color="rgb(253 224 71)" size={28} />
             </Link>
           </button>
         </div>
         <div className="flex gap-3">
-          {/* <button>
-                    <Link 
-                    className="flex items-center gap-1" 
-                    to="/account">
-                            My Account
-                        <IoIosPerson size={28}/>
-                    </Link>
-                </button> */}
-
-          <p>{user.email}</p>
-          {/* <button onClick={handleLogout}>Logout</button> */}
+          <button>
+            <Link className="flex items-center gap-1" to="/account">
+              My Account
+            </Link>
+          </button>
+          <button>
+            <Link className="flex items-center gap-1" to="/about">
+              About
+            </Link>
+          </button>
           <button>
             <IoIosLogIn size={28} onClick={handleLogout} />
           </button>

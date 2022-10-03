@@ -32,7 +32,6 @@ const Forgot = () => {
     try {
       await resetPassword(email);
       navigate("/");
-      console.log(email + " has reset the password");
       alert("Check your email to reset the password");
     } catch (e) {
       setError(e.message);
@@ -49,16 +48,11 @@ const Forgot = () => {
         text-2xl
         bg-romano bg-cover bg-blend-soft-light bg-slate-300"
     >
-      <h1 className="text-6xl font-bold">Historja</h1>
-      <br />
-      <h1 className="text-3xl">Reset your password</h1>
-      <br />
-
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col justify-center items-center gap-3 mb-4"
+        className="flex flex-col justify-center items-center gap-4 mb-4"
       >
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-4">
           <label className="text-3xl mb-1" htmlFor="email">
             Email
           </label>
@@ -74,9 +68,8 @@ const Forgot = () => {
 
         <button className={style.btn}>Reset password</button>
       </form>
-      <Link to="/" className="flex flex-col text-center
-       justify-center items-center">
-        or <br></br>go back to the Login page
+      <Link to="/" className="w-[fit-content] underline underline-offset-4">
+        Back
       </Link>
       {/* Don't have an account?<Link to="signup">Sign up</Link> */}
     </div>

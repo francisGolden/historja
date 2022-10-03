@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { UserAuth } from "../context/AuthContext";
-import { IoLogoTumblr } from "react-icons/io";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -20,7 +19,6 @@ const SignUp = () => {
       navigate("/");
       alert("Check your inbox and verify your email");
       logout();
-      
     } catch (e) {
       setError(e.message);
       alert(error);
@@ -63,7 +61,7 @@ const SignUp = () => {
           Sign Up
         </button>
       </form>
-      Already have an account? <Link to="/">Sign in</Link>
+      Already have an account? <Link to="/" className="underline">Sign in</Link>
     </div>
   );
 };

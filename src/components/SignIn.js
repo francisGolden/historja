@@ -23,10 +23,9 @@ const SignIn = () => {
     try {
       await signIn(email, password);
       navigate("/notes");
-      console.log(email + " has logged in");
     } catch (e) {
       setError(e.message);
-      console.log(error);
+
       alert("Invalid email or password. Please try again.");
     }
   };
@@ -39,35 +38,35 @@ const SignIn = () => {
         text-2xl
         bg-romano bg-cover bg-blend-soft-light bg-slate-300"
     >
-      <h1 className="text-6xl font-bold">Historja</h1>
+      <h1 className="text-5xl font-bold">Historja</h1>
+
       <br />
-      <h1 className="text-3xl">Sign in to your account</h1>
       <br />
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col justify-center items-center gap-3 mb-4"
+        className="flex flex-col justify-center bg-slate-100
+        rounded-xl p-4 md:p-8 box-border max-w-[600px] w-full items-center gap-3 mb-4"
       >
         <div className="flex flex-col items-center">
-          <label className="text-3xl mb-1" htmlFor="email">
+          <label className="text-2xl mb-1" htmlFor="email">
             Email
           </label>
           <input
-            className="p-2"
+            className="p-2 bg-transparent border-b-2 w-full focus:outline-none focus:border-b-slate-500"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
             name="email"
             type="text"
-            
           />
         </div>
 
-        <div className="flex flex-col items-center">
-          <label className="text-3xl mb-1" htmlFor="password">
+        <div className="flex flex-col items-center mb-4">
+          <label className="text-2xl mb-1" htmlFor="password">
             Password
           </label>
           <input
-            className="p-2"
+            className="p-2 bg-transparent border-b-2 w-full focus:outline-none focus:border-b-slate-500"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
@@ -88,8 +87,7 @@ const SignIn = () => {
         Forgot your password?
         <Link
           to="forgot-password"
-          className="w-[fit-content] bg-slate-200 
-        px-2 rounded py-1 hover:bg-slate-300 drop-shadow"
+          className="w-[fit-content] underline underline-offset-2"
         >
           Reset password
         </Link>
@@ -99,8 +97,7 @@ const SignIn = () => {
         Don't have an account?
         <Link
           to="signup"
-          className="w-[fit-content] bg-blue-200 
-        px-2 rounded py-1 hover:bg-blue-300 drop-shadow"
+          className="w-[fit-content] underline underline-offset-2"
         >
           Sign up
         </Link>

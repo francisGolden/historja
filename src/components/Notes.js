@@ -180,7 +180,7 @@ const Notes = () => {
   //   setShowCreateChar(!showCreateChar);
   // };
 
-  const notify = (event) => toast(`Event ${event} created!`);
+  const notify = (event) => toast(`${event} created!`);
 
   return (
     <div
@@ -436,7 +436,13 @@ const Notes = () => {
             </div>
           </div>
 
-          <button className="bg-slate-100 p-2" type="submit">
+          <button
+            className="bg-slate-100 p-2"
+            type="submit"
+            onClick={() => {
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            }}
+          >
             Create event
           </button>
         </div>

@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { NoteContext } from "../context/NoteContext";
 import { db } from "../firebase";
 import { UserAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 import { onSnapshot, collection, query } from "firebase/firestore";
 import { GiConsoleController } from "react-icons/gi";
@@ -10,6 +11,7 @@ const FlashCard = () => {
   const [question, setQuestion] = useState("");
   const [what, setWhat] = useState("");
   const [answer, setAnswer] = useState("");
+  const [height, setHeight] = useState("h-screen");
 
   const { user } = UserAuth();
 
@@ -76,6 +78,7 @@ const FlashCard = () => {
         setQuestion("");
         setPlay("PLAY");
         setPlaying(true);
+        setHeight("h-full");
 
         setToPlay(e.target.id);
       } else {
@@ -131,7 +134,7 @@ const FlashCard = () => {
       setQuestion("");
       setPlay("PLAY");
       setPlaying(false);
-
+      setHeight("h-screen");
       setCardBackground("");
     }
   };
@@ -144,11 +147,11 @@ const FlashCard = () => {
 
   const gridCustom = () => {
     if (notes.length <= 1) {
-      return "md:grid-cols-1"
+      return "md:grid-cols-1";
     } else {
-      return "md:grid-cols-2"
+      return "md:grid-cols-2";
     }
-  }
+  };
 
   return (
     <div
@@ -162,7 +165,7 @@ const FlashCard = () => {
             justify-start items-center lg:w-1/2 w-full
             h-full"
       >
-        {playing === false ? (
+        {playing === false && notes.length !== 0 ? (
           <h2 className="text-2xl p-5">
             Select the event and press <b>PLAY</b>
           </h2>
@@ -175,7 +178,7 @@ const FlashCard = () => {
           className={`grid ${gridCustom()} flex-col overflow-scroll 
           scrollbar-hide w-full gap-2 md:gap-0
           bg-transparent
-          h-full
+          ${height}
           justify-center items-center`}
           //   style={
           //     cardBackground ? { backgroundImage: `url(${cardBackground})` } : {}
@@ -191,6 +194,17 @@ const FlashCard = () => {
               {playing === true ? `${incremental}/8` : null}
             </p>
           )}
+
+          {notes.length === 0 ? (
+            <p className="text-center">
+              There's nothing here yet. <br></br>
+              Go{" "}
+              <Link to="/new" className="underline">
+                ahead
+              </Link>{" "}
+              and create your first note
+            </p>
+          ) : null}
 
           {playing === false
             ? notes.map((note) => {
@@ -208,7 +222,11 @@ const FlashCard = () => {
                       note.img ? { backgroundImage: `url(${note.img})` } : {}
                     }
                   >
-                    <p onClick={selectCard} id={note.id} className="font-bold text-3xl">
+                    <p
+                      onClick={selectCard}
+                      id={note.id}
+                      className="font-bold text-3xl"
+                    >
                       {note.event}
                     </p>
                   </div>

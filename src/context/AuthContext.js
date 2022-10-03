@@ -7,6 +7,7 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail,
   sendEmailVerification,
+  deleteUser,
 } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -21,10 +22,8 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("user is signed in");
         setNav(true);
       } else {
-        console.log("user is signed out");
         setNav(false);
       }
     });
@@ -46,25 +45,39 @@ export const AuthContextProvider = ({ children }) => {
     await sendEmailVerification(userCred.user);
   };
 
-//   const signIn = (email, password) => {
-//     return signInWithEmailAndPassword(auth, email, password);
-//   };
+  //   const signIn = (email, password) => {
+  //     return signInWithEmailAndPassword(auth, email, password);
+  //   };
 
+  const signIn = async (email, password) => {
+    const signUserCred = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-  const signIn = async(email, password) => {
-    const signUserCred = await signInWithEmailAndPassword(auth, email, password);
-
-    console.log(signUserCred)
     if (!signUserCred.user.emailVerified) {
-        alert("Email has not been verified yet")
-        await sendEmailVerification(signUserCred.user)
-        logout()
+      alert("Email has not been verified yet");
+      await sendEmailVerification(signUserCred.user);
+      logout();
     }
-  }
-
+  };
 
   const logout = () => {
     return signOut(auth);
+  };
+
+  const delUser = async () => {
+    try {
+      await deleteUser(auth.currentUser);
+    } catch (e) {
+      if (e) {
+        alert(
+          "In order to delete your account you must press Delete account right after your login"
+        );
+        logout();
+      }
+    }
   };
 
   const resetPassword = (email) => {
@@ -83,7 +96,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ createUser, user, nav, logout, resetPassword, signIn }}
+      value={{ createUser, user, nav, logout, resetPassword, signIn, delUser }}
     >
       {children}
     </UserContext.Provider>

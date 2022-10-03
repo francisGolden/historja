@@ -201,8 +201,6 @@ const NoteList = () => {
   };
 
   useEffect(() => {
-    console.log(sort);
-
     handleSort();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -563,6 +561,8 @@ const NoteList = () => {
                     <button
                       className="hover:bg-blue-300 border-2 border-stone-500 bg-zinc-100/80 w-fit px-3 "
                       onClick={() => handleShowEvent(note.id)}
+                      name={note.event}
+                      id={note.id}
                     >
                       {showEvent === note.id ? "Shrink" : "Expand"}
                     </button>
@@ -583,25 +583,30 @@ const NoteList = () => {
       {notes.length === 0 ? (
         <p className="text-center">
           There's nothing here yet. <br></br>
-          Go <Link to="/new" className="underline">here</Link> and create your
-          first note
+          Go{" "}
+          <Link to="/new" className="underline">
+            ahead
+          </Link>{" "}
+          and create your first note
         </p>
       ) : null}
 
-      <div
-        className="flex justify-center text-blue-500
+      {notes.length === 0 ? null : (
+        <div
+          className="flex justify-center text-blue-500
       font-bold text-5xl w-full"
-      >
-        <button
-          onClick={() => {
-            setSeeMap(!seeMap);
-          }}
-          className="bg-slate-200/50 hover:bg-slate-100/60 p-4 w-full"
-          id="map"
         >
-          Show Map
-        </button>
-      </div>
+          <button
+            onClick={() => {
+              setSeeMap(!seeMap);
+            }}
+            className="bg-slate-200/50 hover:bg-slate-100/60 p-4 w-full"
+            id="map"
+          >
+            Show Map
+          </button>
+        </div>
+      )}
 
       {!isLoaded || !seeMap ? null : (
         <div
@@ -619,17 +624,19 @@ const NoteList = () => {
         </div>
       )}
 
-      <div
-        className="flex justify-center text-blue-500
+      {notes.length === 0 ? null : (
+        <div
+          className="flex justify-center text-blue-500
       font-bold text-5xl w-full"
-      >
-        <button
-          onClick={() => setSeeTimeline(!seeTimeline)}
-          className="bg-slate-200/50 hover:bg-slate-100/60 p-4 w-full"
         >
-          Show Timeline
-        </button>
-      </div>
+          <button
+            onClick={() => setSeeTimeline(!seeTimeline)}
+            className="bg-slate-200/50 hover:bg-slate-100/60 p-4 w-full"
+          >
+            Show Timeline
+          </button>
+        </div>
+      )}
 
       {seeTimeline ? (
         <div

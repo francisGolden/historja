@@ -10,11 +10,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import FlashCard from "./components/FlashCard";
 import NoteList from "./components/NoteList";
 import Forgot from "./components/Forgot";
-
+import About from "./components/About";
+import Footer from "./components/Footer";
 
 function App() {
-
-
   return (
     <AuthContextProvider>
       <NoteProvider>
@@ -24,19 +23,48 @@ function App() {
             <Route path="/" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgot-password" element={<Forgot />} />
-            <Route path="/account" element={<ProtectedRoute>
-              <Account />
-              </ProtectedRoute>} />
-            <Route path="/notes" element={<ProtectedRoute>
-            <NoteList />
-            </ProtectedRoute>} />
-            <Route path="/new" element={<ProtectedRoute>
-              <Notes />
-              </ProtectedRoute>} />
-            <Route path="/flash" element={<ProtectedRoute>
-              <FlashCard />
-              </ProtectedRoute>} />
+            <Route
+              path="/account"
+              element={
+                <ProtectedRoute>
+                  <Account />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/notes"
+              element={
+                <ProtectedRoute>
+                  <NoteList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/new"
+              element={
+                <ProtectedRoute>
+                  <Notes />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/flash"
+              element={
+                <ProtectedRoute>
+                  <FlashCard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <ProtectedRoute>
+                  <About />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
+          <Footer />
         </div>
       </NoteProvider>
     </AuthContextProvider>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { NoteContext } from "../context/NoteContext";
 import CsvDownload from "react-json-to-csv";
+import { motion } from "framer-motion";
 
 const Account = () => {
   const { user, logout, delUser } = UserAuth();
@@ -44,7 +45,7 @@ const Account = () => {
               arr.push({ question: question, answer: note[item] });
               break;
             case "why":
-              question = `Why did ${note.event} take place?`;
+              question = `Why did ${note.event} happen?`;
               arr.push({ question: question, answer: note[item] });
               break;
             case "who":
@@ -81,12 +82,16 @@ const Account = () => {
   const day = new Date().getDate();
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ type: "spring", duration: 0.3 }}
       className="flex flex-col flex-1 
         items-center justify-center 
         gap-5 p-3 
         text-2xl
-        bg-wolfe bg-cover bg-blend-soft-light bg-slate-300"
+        "
     >
       <ul className="flex flex-col gap-4 text-center justify-center items-center">
         <li>Email: {user && user.email}</li>
@@ -121,7 +126,7 @@ const Account = () => {
           </button>
         </li>
       </ul>
-    </div>
+    </motion.div>
   );
 };
 

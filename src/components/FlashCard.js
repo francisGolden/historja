@@ -1,11 +1,8 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { NoteContext } from "../context/NoteContext";
-import { db } from "../firebase";
 import { UserAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
-
-import { onSnapshot, collection, query } from "firebase/firestore";
-import { GiConsoleController } from "react-icons/gi";
+import { motion } from "framer-motion";
 
 const FlashCard = () => {
   const [question, setQuestion] = useState("");
@@ -107,7 +104,44 @@ const FlashCard = () => {
             item !== "img"
           ) {
             arr = [];
-            arr[0] = item;
+            // arr[0] = item;
+            let question = "";
+            switch (item) {
+              case "where":
+                question = `Where did ${note.event} take place?`;
+                arr[0] = question;
+                break;
+              case "when":
+                question = `When did ${note.event} take place?`;
+                arr[0] = question;
+                break;
+              case "why":
+                question = `Why did ${note.event} happen?`;
+                arr[0] = question;
+                break;
+              case "who":
+                question = `Who was involved in ${note.event}?`;
+                arr[0] = question;
+                break;
+              case "beginning":
+                question = `How did ${note.event} start?`;
+                arr[0] = question;
+                break;
+              case "unfold":
+                question = `How did ${note.event} unfold?`;
+                arr[0] = question;
+                break;
+              case "end":
+                question = `How did ${note.event} end?`;
+                arr[0] = question;
+                break;
+              case "source":
+                question = `What sources did you use for ${note.event}?`;
+                arr[0] = question;
+                break;
+              default:
+                console.log();
+            }
             arr[1] = note[item];
             arr[2] = note.event;
             arr[3] = note.img;
@@ -124,7 +158,7 @@ const FlashCard = () => {
 
     if (incremental <= 7) {
       setIncremental(incremental + 1);
-      setQuestion(arrContainer[incremental][0] + "?");
+      setQuestion(arrContainer[incremental][0]);
       setWhat(arrContainer[incremental][2]);
       setAnswer(arrContainer[incremental][1]);
 
@@ -154,7 +188,11 @@ const FlashCard = () => {
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ type: "spring", duration: 0.3 }}
       className="flex flex-col justify-center 
         bg-cardsharps bg-no-repeat bg-slate-300
         bg-cover p-3 bg-blend-soft-light
@@ -166,9 +204,19 @@ const FlashCard = () => {
             h-full"
       >
         {playing === false && notes.length !== 0 ? (
-          <h2 className="text-2xl p-5">
-            Select the event and press <b>PLAY</b>
-          </h2>
+          <div>
+                  <div className=" text-7xl font-bold mt-4 mb-4">
+        <div
+          className="p-4 bg-clip-text text-center 
+        text-transparent bg-gradient-to-r from-amber-600 to-amber-700"
+        >
+          <h1>Flash cards</h1>
+        </div>
+      </div>
+            <h2 className="text-2xl p-5">
+              Select an event and press <b>PLAY</b>
+            </h2>
+          </div>
         ) : (
           <p className="font-bold mb-3 text-3xl p-3">{what.toUpperCase()}</p>
         )}
@@ -186,12 +234,12 @@ const FlashCard = () => {
         >
           {playing === false ? null : (
             <p
-              className="bg-gradient-to-r from-yellow-300/60
+              className="flex flex-col bg-gradient-to-r from-yellow-300/60
                     to-yellow-500/60 
                     py-5 text-4xl w-screen"
             >
-              {capitalize(question)}{" "}
-              {playing === true ? `${incremental}/8` : null}
+              <p>{capitalize(question)}</p>{" "}
+              <p>{playing === true ? `${incremental}/8` : null}</p>
             </p>
           )}
 
@@ -209,7 +257,7 @@ const FlashCard = () => {
           {playing === false
             ? notes.map((note) => {
                 return (
-                  <div
+                  <motion.div
                     onClick={selectCard}
                     className="flex items-center justify-center 
                                 hover:bg-blue-200/70 h-full w-screen
@@ -229,7 +277,7 @@ const FlashCard = () => {
                     >
                       {note.event}
                     </p>
-                  </div>
+                  </motion.div>
                 );
               })
             : null}
@@ -267,7 +315,7 @@ const FlashCard = () => {
           ) : null}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

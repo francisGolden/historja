@@ -43,7 +43,7 @@ const NavBar = () => {
 
           <button>
             <Link
-              className="flex items-center h-[60px] md:h-[60px] bg-slate-200 p-2 gap-1 
+              className="flex items-center h-[60px] md:h-[60px] hover:bg-slate-100 bg-slate-200 p-2 gap-1 
             rounded"
               to="/new"
             >
@@ -63,7 +63,7 @@ const NavBar = () => {
 
           <button>
             <Link
-              className="flex items-center h-[60px] leading-none md:h-[60px] bg-slate-200 p-2 gap-1 
+              className="flex items-center h-[60px] leading-none md:h-[60px] hover:bg-slate-100 bg-slate-200 p-2 gap-1 
             rounded"
               to="/flash"
             >
@@ -74,16 +74,27 @@ const NavBar = () => {
         </div>
         <div className="flex gap-3">
           <button>
-            <Link className="flex items-center gap-1" to="/account">
+            <Link
+              className="flex items-center h-[60px] leading-none md:h-[60px] hover:bg-slate-100 bg-slate-200 p-2 gap-1 
+            rounded"
+              to="/about"
+            >
+              About this app
+            </Link>
+          </button>
+          <button>
+            <Link
+              className="flex items-center h-[60px] leading-none md:h-[60px] hover:bg-slate-100 bg-slate-200 p-2 gap-1 
+            rounded"
+              to="/account"
+            >
               My Account
             </Link>
           </button>
-          <button>
-            <Link className="flex items-center gap-1" to="/about">
-              About
-            </Link>
-          </button>
-          <button>
+          <button
+            className="flex items-center h-[60px] leading-none md:h-[60px] hover:bg-slate-100 bg-slate-200 p-2 gap-1 
+            rounded"
+          >
             <IoIosLogIn size={28} onClick={handleLogout} />
           </button>
         </div>

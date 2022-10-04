@@ -18,7 +18,7 @@ import EditForm from "./EditForm";
 import sortArray from "sort-array";
 import Timeline from "./Timeline";
 import Switch from "react-switch";
-import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const NoteList = () => {
   const { notes, setNotes, loading } = useContext(NoteContext);
@@ -314,15 +314,19 @@ const NoteList = () => {
   };
 
   return (
-    <div
+    <motion.div
+      initial={{opacity: 0, x: 100}}
+      animate={{opacity: 1, x: 0}}
+      exit={{opacity: 0, x:-100}}
+      transition={{type: "spring", duration: 0.3}}
       className="flex flex-col justify-start 
-        p-3 bg-blend-soft-light
+        p-3
         items-center flex-1 text-2xl bg-slate-300 gap-5"
     >
       <div className=" text-7xl font-bold mt-4 mb-4">
         <div
           className="p-4 bg-clip-text text-center 
-        text-transparent bg-gradient-to-r from-slate-400 to-slate-600 "
+        text-transparent bg-gradient-to-r from-sky-400 to-cyan-500 "
         >
           <h1>My Events</h1>
         </div>
@@ -405,10 +409,26 @@ const NoteList = () => {
       ) : null}
 
       {checked === false && !loading ? (
-        <div className="flex flex-col w-full lg:w-1/2 gap-2 ">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          variants={{
+            visible: { opacity: 1 },
+            hidden: { opacity: 0 },
+          }}
+          className="flex flex-col w-full lg:w-1/2 gap-2 "
+        >
           {filtrd.map((note) => {
             return (
-              <div
+              <motion.div
+                whileHover={{ y: -2, zIndex: 1 }}
+                transition={{
+                  type: "spring",
+                  zIndex: 100,
+                  duration: 0.4,
+                }}
                 className="flex flex-col
                         p-6 bg-slate-200/80 bg-blend-soft-light bg-cover bg-center shadow-sm"
                 style={note.img ? { backgroundImage: `url(${note.img})` } : {}}
@@ -568,10 +588,10 @@ const NoteList = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       ) : null}
 
       {loading ? <p>loading...</p> : null}
@@ -609,7 +629,15 @@ const NoteList = () => {
       )}
 
       {!isLoaded || !seeMap ? null : (
-        <div
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ type: "spring", duration: 1, delay: 0.2 }}
+          variants={{
+            visible: { opacity: 1 },
+            hidden: { opacity: 0 },
+          }}
           className="font-bold flex flex-col  decoration-green-500 items-center justify-center 
                 text-4xl border-slate-500 w-full"
         >
@@ -621,7 +649,7 @@ const NoteList = () => {
             Refresh the page if the events are not being displayed correctly in
             the map
           </p>
-        </div>
+        </motion.div>
       )}
 
       {notes.length === 0 ? null : (
@@ -639,7 +667,15 @@ const NoteList = () => {
       )}
 
       {seeTimeline ? (
-        <div
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ type: "spring", duration: 1, delay: 0.2 }}
+          variants={{
+            visible: { opacity: 1 },
+            hidden: { opacity: 0 },
+          }}
           className="font-bold flex flex-col items-center
                  justify-center text-4xl border-slate-500 w-full"
         >
@@ -647,9 +683,9 @@ const NoteList = () => {
             <h1>Timeline</h1>
           </div>
           <Timeline filtrd={filtrd} />
-        </div>
+        </motion.div>
       ) : null}
-    </div>
+    </motion.div>
   );
 };
 

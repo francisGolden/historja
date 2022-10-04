@@ -61,14 +61,13 @@ const Map = ({ filtrd }) => {
   return (
     <GoogleMap
       zoom={5}
-      center={{lat: centerLat, lng: centerLong}}
+      center={{ lat: centerLat, lng: centerLong }}
       mapContainerClassName="w-full lg:w-1/2 h-[600px]"
       options={{ mapId: "6846c91021828ddf", streetViewControl: false }}
     >
       {filtrd.map(({ event, when, id, coords }) => {
         return (
           <MarkerF
-            animation={2}
             label={{
               text: `${event} (${when})`,
               className:

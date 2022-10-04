@@ -17,7 +17,9 @@ const SignUp = () => {
     try {
       await createUser(email, password);
       navigate("/");
-      alert("Check your inbox and verify your email");
+      alert(
+        "Check your inbox and verify your email. The email might end up in the spam folder"
+      );
       logout();
     } catch (e) {
       setError(e.message);
@@ -61,7 +63,10 @@ const SignUp = () => {
           Sign Up
         </button>
       </form>
-      Already have an account? <Link to="/" className="underline">Sign in</Link>
+      Already have an account?{" "}
+      <Link to="/" className="underline">
+        Sign in
+      </Link>
     </div>
   );
 };

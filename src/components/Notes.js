@@ -11,6 +11,7 @@ import { BsFillArrowDownCircleFill } from "react-icons/bs";
 import { useLoadScript } from "@react-google-maps/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { motion } from "framer-motion";
 
 const Notes = () => {
   const { user } = UserAuth();
@@ -183,7 +184,11 @@ const Notes = () => {
   const notify = (event) => toast(`${event} created!`);
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ type: "spring", duration: 0.3 }}
       className="flex flex-col justify-start bg-peirson bg-no-repeat 
             bg-cover p-3 bg-blend-soft-light
             items-center flex-1 text-2xl bg-slate-300 gap-2
@@ -196,12 +201,13 @@ const Notes = () => {
         theme="dark"
       />
 
-      <div
-        onClick={handleShowCreateEvent}
-        className="text-6xl  my-10 
-                bg-slate-100 p-4 text-center"
-      >
-        Create a new <b>event</b>
+      <div className=" text-7xl font-bold mt-4 mb-4">
+        <div
+          className="p-4 bg-clip-text text-center 
+        text-transparent bg-gradient-to-r from-emerald-400 to-teal-600 "
+        >
+          <h1>Create a new event</h1>
+        </div>
       </div>
 
       {/* {(!showCreateEvent) ? (<button onClick={handleShowCreateChar}
@@ -211,7 +217,18 @@ const Notes = () => {
             </button>)
                 : null} */}
 
-      <form className="flex items-center flex-col w-full" onSubmit={handleNew}>
+      <motion.form
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          type: "spring",
+          duration: 1,
+          delay: 0.1,
+          delayChildren: 0.2,
+        }}
+        className="flex items-center flex-col w-full"
+        onSubmit={handleNew}
+      >
         <div className="flex flex-col w-full lg:w-1/2 gap-6">
           <div className="flex flex-col gap-2 w-full p-2 bg-slate-200/70">
             <h2 className="">What is the event we are talking about?</h2>
@@ -232,10 +249,6 @@ const Notes = () => {
                 name="event"
               />
             </div>
-
-            <a href="#where" className="hidden sm:block">
-              <BsFillArrowDownCircleFill size={42} />
-            </a>
           </div>
 
           <div
@@ -314,13 +327,17 @@ const Notes = () => {
                 name="who"
               />
             </div>
-
-            <a href="#evo" className="hidden sm:block">
-              <BsFillArrowDownCircleFill size={42} />
-            </a>
           </div>
 
-          <div
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            variants={{
+              visible: { opacity: 1 },
+              hidden: { opacity: 0 },
+            }}
             id="evo"
             className="flex flex-col gap-2 w-full p-2 bg-slate-200/70"
           >
@@ -376,13 +393,17 @@ const Notes = () => {
                 name="end"
               />
             </div>
+          </motion.div>
 
-            <a href="#end" className="hidden sm:block">
-              <BsFillArrowDownCircleFill size={42} />
-            </a>
-          </div>
-
-          <div
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            variants={{
+              visible: { opacity: 1 },
+              hidden: { opacity: 0 },
+            }}
             id="end"
             className="flex flex-col gap-2 w-full p-2 bg-slate-200/70"
           >
@@ -434,10 +455,10 @@ const Notes = () => {
                 name="tag"
               />
             </div>
-          </div>
+          </motion.div>
 
           <button
-            className="bg-slate-100 p-2"
+            className="bg-teal-400 text-slate-100 p-4 my-4 text-4xl font-bold"
             type="submit"
             onClick={() => {
               window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -446,7 +467,7 @@ const Notes = () => {
             Create event
           </button>
         </div>
-      </form>
+      </motion.form>
 
       {/* {(showCreateChar) ? (
                 <form className="flex flex-col items-center w-full" onSubmit={handleNewChar}>
@@ -573,7 +594,7 @@ const Notes = () => {
                     </div>
                 </form>
             ) : null} */}
-    </div>
+    </motion.div>
   );
 };
 

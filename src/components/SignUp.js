@@ -53,7 +53,7 @@ const SignUp = () => {
         <input
           onChange={(e) => setPassword(e.target.value)}
           name="password"
-          type="text"
+          type="password"
           className="text-2xl p-2"
         />
         <button

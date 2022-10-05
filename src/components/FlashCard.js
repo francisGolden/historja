@@ -205,14 +205,14 @@ const FlashCard = () => {
       >
         {playing === false && notes.length !== 0 ? (
           <div>
-                  <div className=" text-7xl font-bold mt-4 mb-4">
-        <div
-          className="p-4 bg-clip-text text-center 
+            <div className=" text-7xl font-bold mt-4 mb-4">
+              <div
+                className="p-4 bg-clip-text text-center 
         text-transparent bg-gradient-to-r from-amber-600 to-amber-700"
-        >
-          <h1>Flash cards</h1>
-        </div>
-      </div>
+              >
+                <h1>Flash cards</h1>
+              </div>
+            </div>
             <h2 className="text-2xl p-5">
               Select an event and press <b>PLAY</b>
             </h2>
@@ -226,21 +226,23 @@ const FlashCard = () => {
           className={`grid ${gridCustom()} flex-col overflow-scroll 
           scrollbar-hide w-full gap-2 md:gap-0
           bg-transparent
-          ${height}
-          justify-center items-center`}
+          h-full
+          justify-center items-start`}
           //   style={
           //     cardBackground ? { backgroundImage: `url(${cardBackground})` } : {}
           //   }
         >
           {playing === false ? null : (
-            <p
+            <div
               className="flex flex-col bg-gradient-to-r from-yellow-300/60
                     to-yellow-500/60 
-                    py-5 text-4xl w-screen"
+                    py-5 text-4xl w-full"
             >
-              <p>{capitalize(question)}</p>{" "}
-              <p>{playing === true ? `${incremental}/8` : null}</p>
-            </p>
+              <p className="text-2xl">{capitalize(question)}</p>{" "}
+              <p className="text-2xl">
+                {playing === true ? `${incremental}/8` : null}
+              </p>
+            </div>
           )}
 
           {notes.length === 0 ? (
@@ -260,8 +262,8 @@ const FlashCard = () => {
                   <motion.div
                     onClick={selectCard}
                     className="flex items-center justify-center 
-                                hover:bg-blue-200/70 h-full w-screen
-                                 md:w-full
+                                hover:bg-blue-200/70 w-screen
+                                 md:w-full min-h-[200px]
                                 bg-slate-200/80 hover:animate-pulse 
                                 bg-blend-soft-light bg-cover bg-center"
                     key={note.id}
@@ -285,11 +287,11 @@ const FlashCard = () => {
           {playing === true ? (
             <div
               className="flex flex-col flex-1 cursor-pointer 
-                        justify-center"
+                        justify-center items-center w-full "
             >
               <button
                 style={{ whiteSpace: "break-spaces" }}
-                className="overflow-scroll text-3xl p-2 max-h-[300px] scrollbar-hide"
+                className="overflow-scroll text-2xl p-2 max-h-[300px] scrollbar-hide"
                 onClick={show}
               >
                 {ans}
@@ -304,14 +306,16 @@ const FlashCard = () => {
           ) : null}
 
           {playing === true ? (
-            <button
-              className="bg-green-300 hover:bg-green-300 
+            <div className="flex justify-center items-center w-full">
+              <button
+                className="bg-green-300 hover:bg-green-300 
                         animate-pulse mb-3
                         rounded px-3 text-5xl"
-              onClick={playGame}
-            >
-              {play}
-            </button>
+                onClick={playGame}
+              >
+                {play}
+              </button>
+            </div>
           ) : null}
         </div>
       </div>

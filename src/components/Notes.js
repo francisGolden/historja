@@ -460,9 +460,9 @@ const Notes = () => {
           <button
             className="bg-teal-400 text-slate-100 p-4 my-4 text-4xl font-bold"
             type="submit"
-            onClick={() => {
-              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-            }}
+            onClick={() => 
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
+            }
           >
             Create event
           </button>

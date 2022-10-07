@@ -32,8 +32,8 @@ const Autocomplete = ({ isLoaded, setWhere, where, setCoords, address, setAddres
                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
                             return (
                             <div className="flex flex-col w-full">
-                                <input value={where} className="bg-slate-100/80 p-1" {...getInputProps({
-                                    placeholder: "Rome, Firenze, Sondrio, ...",
+                                <input value={where} className="bg-transparent placeholder:truncate text-ellipsis overflow-hidden text-2xl h-[50px] md:text-3xl py-2 border-b-2 border-slate-500 focus:outline-none" {...getInputProps({
+                                    placeholder: "🧭 Where did the event take place?",
                                 })} />
                                 <div>
                                     {loading && <div>Loading...</div>}

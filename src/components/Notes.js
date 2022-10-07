@@ -127,6 +127,7 @@ const Notes = () => {
     setImg("");
 
     setAddress("");
+    window.scrollTo(0, 0);
   };
 
   // const handleNewChar = async (e) => {
@@ -183,14 +184,16 @@ const Notes = () => {
 
   const notify = (event) => toast(`${event} created!`);
 
+  const inputStyle =
+    "bg-transparent text-2xl md:text-3xl h-[60px] py-2 placeholder:truncate text-ellipsis overflow-hidden border-b-2 border-slate-500 focus:outline-none";
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 100 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -100 }}
       transition={{ type: "spring", duration: 0.3 }}
-      className="flex flex-col justify-start bg-peirson bg-no-repeat 
-            bg-cover p-3 bg-blend-soft-light
+      className="flex flex-col justify-start
             items-center flex-1 text-2xl bg-slate-300 gap-2
             "
     >
@@ -229,243 +232,227 @@ const Notes = () => {
         className="flex items-center flex-col w-full"
         onSubmit={handleNew}
       >
-        <div className="flex flex-col w-full lg:w-1/2 gap-6">
-          <div className="flex flex-col gap-2 w-full p-2 bg-slate-200/70">
-            <h2 className="">What is the event we are talking about?</h2>
+        <div className="flex flex-col p-4 w-full lg:w-1/2 gap-6">
+          <section className="flex flex-col gap-2 w-full p-2">
+            <input
+              className="bg-transparent placeholder:truncate text-ellipsis overflow-hidden text-4xl w-full py-4 border-b-2 border-slate-500 focus:outline-none"
+              placeholder="✍ Name of the event"
+              value={event}
+              required
+              onChange={(e) => {
+                setEvent(e.target.value);
+              }}
+              type="text"
+              name="event"
+            />
+          </section>
 
-            <div className="flex flex-col">
-              <label className="font-bold" htmlFor="event">
-                Event
-              </label>
-              <textarea
-                className="bg-slate-100/80 p-1"
-                placeholder="Battle of Waterloo"
-                value={event}
-                required
-                onChange={(e) => {
-                  setEvent(e.target.value);
-                }}
-                type="text"
-                name="event"
-              />
-            </div>
-          </div>
-
-          <div
-            id="where"
-            className="flex flex-col gap-2 w-full p-2 bg-slate-200/70"
-          >
-            <h2 className="">What are the main points?</h2>
-
-            <div className="flex flex-col">
-              <label className="font-bold" htmlFor="where">
-                Where
-              </label>
-              {/* <textarea className="bg-slate-100/80 p-1"
+          {event ? (
+            <motion.section
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              variants={{
+                visible: { opacity: 1 },
+                hidden: { opacity: 0 },
+              }}
+              id="where"
+              className="flex flex-col gap-4 w-full p-2"
+            >
+              <div className="flex flex-col">
+                {/* <textarea className="bg-slate-100/80 p-1"
                         placeholder="Waterloo" value={where}
                         // onChange={(e) => { setWhere(e.target.value) }} 
                         type="text" name="where" />
                      */}
-              <Autocomplete
-                setWhere={setWhere}
-                address={address}
-                setAddress={setAddress}
-                where={where}
-                coords={coords}
-                setCoords={setCoords}
-                isLoaded={isLoaded}
-              />
-            </div>
+                <Autocomplete
+                  setWhere={setWhere}
+                  address={address}
+                  setAddress={setAddress}
+                  where={where}
+                  coords={coords}
+                  setCoords={setCoords}
+                  isLoaded={isLoaded}
+                />
+              </div>
 
-            <div className="flex flex-col">
-              <label className="font-bold" htmlFor="when">
-                When
-              </label>
-              <input
-                className="bg-slate-100/80 p-1"
-                placeholder="for B.C years insert minus before the year (-480)"
-                value={when}
-                required
-                onChange={(e) => {
-                  setWhen(e.target.value);
-                }}
-                type="number"
-                name="when"
-              />
-            </div>
+              <div className="flex flex-col">
+                <input
+                  className={inputStyle}
+                  placeholder="📆 When did the event take place? (1492, -230)"
+                  value={when}
+                  required
+                  onChange={(e) => {
+                    setWhen(e.target.value);
+                  }}
+                  type="number"
+                  name="when"
+                />
+              </div>
 
-            <div className="flex flex-col">
-              <label className="font-bold" htmlFor="why">
-                Why
-              </label>
-              <textarea
-                className="bg-slate-100/80 p-1"
-                placeholder="Because..."
-                value={why}
-                required
-                onChange={(e) => {
-                  setWhy(e.target.value);
-                }}
-                type="text"
-                name="why"
-              />
-            </div>
+              <div className="flex flex-col">
+                <textarea
+                  className={inputStyle}
+                  placeholder="🤔 Why did the event happen?"
+                  value={why}
+                  required
+                  onChange={(e) => {
+                    setWhy(e.target.value);
+                  }}
+                  type="text"
+                  name="why"
+                />
+              </div>
 
-            <div className="flex flex-col">
-              <label className="font-bold" htmlFor="who">
-                Who
-              </label>
-              <textarea
-                className="bg-slate-100/80 p-1"
-                value={who}
-                required
-                placeholder="Napoleon (France) vs UK, Prussia, Netherlands, Hanover, Nassau, Brunswick"
-                onChange={(e) => {
-                  setWho(e.target.value);
-                }}
-                type="text"
-                name="who"
-              />
-            </div>
-          </div>
+              <div className="flex flex-col">
+                <textarea
+                  className={inputStyle}
+                  value={who}
+                  required
+                  placeholder="🪪 Who was involved in this event? "
+                  onChange={(e) => {
+                    setWho(e.target.value);
+                  }}
+                  type="text"
+                  name="who"
+                />
+              </div>
+            </motion.section>
+          ) : null}
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            variants={{
-              visible: { opacity: 1 },
-              hidden: { opacity: 0 },
-            }}
-            id="evo"
-            className="flex flex-col gap-2 w-full p-2 bg-slate-200/70"
-          >
-            <h2 className="">How did the event develop?</h2>
+          {who ? (
+            <motion.section
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              variants={{
+                visible: { opacity: 1 },
+                hidden: { opacity: 0 },
+              }}
+              id="evo"
+              className="flex flex-col gap-2 w-full p-2"
+            >
+              <div className="flex flex-col">
+                <textarea
+                  className={inputStyle}
+                  required
+                  placeholder="🎬 How did it start?"
+                  value={beginning}
+                  onChange={(e) => {
+                    setBeginning(e.target.value);
+                  }}
+                  type="text"
+                  name="beginning"
+                />
+              </div>
 
-            <div className="flex flex-col">
-              <label className="font-bold" htmlFor="beginning">
-                Beginning
-              </label>
-              <textarea
-                className="bg-slate-100/80 p-1"
-                required
-                placeholder="It started like this..."
-                value={beginning}
-                onChange={(e) => {
-                  setBeginning(e.target.value);
-                }}
-                type="text"
-                name="beginning"
-              />
-            </div>
+              <div className="flex flex-col">
+                <textarea
+                  className={inputStyle}
+                  required
+                  placeholder="🎞 How did it unfold?"
+                  value={unfold}
+                  onChange={(e) => {
+                    setUnfold(e.target.value);
+                  }}
+                  type="text"
+                  name="unfold"
+                />
+              </div>
 
-            <div className="flex flex-col">
-              <label className="font-bold" htmlFor="unfold">
-                Unfold
-              </label>
-              <textarea
-                className="bg-slate-100/80 p-1"
-                required
-                placeholder="It developed like that..."
-                value={unfold}
-                onChange={(e) => {
-                  setUnfold(e.target.value);
-                }}
-                type="text"
-                name="unfold"
-              />
-            </div>
+              <div className="flex flex-col">
+                <textarea
+                  className={inputStyle}
+                  required
+                  placeholder="🏁 How did this event end?"
+                  value={end}
+                  onChange={(e) => {
+                    setEnd(e.target.value);
+                  }}
+                  type="text"
+                  name="end"
+                />
+              </div>
+            </motion.section>
+          ) : null}
 
-            <div className="flex flex-col">
-              <label className="font-bold" htmlFor="end">
-                End
-              </label>
-              <textarea
-                className="bg-slate-100/80 p-1"
-                required
-                placeholder="It ended like this..."
-                value={end}
-                onChange={(e) => {
-                  setEnd(e.target.value);
-                }}
-                type="text"
-                name="end"
-              />
-            </div>
-          </motion.div>
+          {end ? (
+            <motion.section
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              variants={{
+                visible: { opacity: 1 },
+                hidden: { opacity: 0 },
+              }}
+              id="end"
+              className="flex flex-col gap-2 w-full p-2"
+            >
+              <div className="flex flex-col">
+                <textarea
+                  className={inputStyle}
+                  required
+                  placeholder="📜 What sources did you use for it?"
+                  value={source}
+                  onChange={(e) => {
+                    setSource(e.target.value);
+                  }}
+                  type="text"
+                  name="source"
+                />
+              </div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            variants={{
-              visible: { opacity: 1 },
-              hidden: { opacity: 0 },
-            }}
-            id="end"
-            className="flex flex-col gap-2 w-full p-2 bg-slate-200/70"
-          >
-            <div className="flex flex-col">
-              <label className="font-bold" htmlFor="source">
-                Source
-              </label>
-              <textarea
-                className="bg-slate-100/80 p-1"
-                required
-                placeholder="Barbero, Alessandro (2013), The Battle: A New History of Waterloo, 
-                        Atlantic Books, p. 160, ISBN 978-1-78239-138-8"
-                value={source}
-                onChange={(e) => {
-                  setSource(e.target.value);
-                }}
-                type="text"
-                name="source"
-              />
-            </div>
+              <div className="flex flex-col">
+                <input
+                  className={inputStyle}
+                  value={img}
+                  onChange={(e) => {
+                    setImg(e.target.value);
+                  }}
+                  type="text"
+                  name="img"
+                  placeholder="🖼 Image URL"
+                />
+              </div>
 
-            <div className="flex flex-col">
-              <label className="font-bold" htmlFor="img">
-                Image URL
-              </label>
-              <input
-                className="bg-slate-100/80 p-1"
-                value={img}
-                onChange={(e) => {
-                  setImg(e.target.value);
-                }}
-                type="text"
-                name="img"
-              />
-            </div>
+              <div className="flex flex-col">
+                <textarea
+                  className={inputStyle}
+                  placeholder="🏷 Tag1, Tag2, ..."
+                  value={tag}
+                  onChange={(e) => {
+                    setTag(e.target.value);
+                  }}
+                  type="text"
+                  name="tag"
+                />
+              </div>
+            </motion.section>
+          ) : null}
 
-            <div className="flex flex-col">
-              <label className="font-bold" htmlFor="tag">
-                Tags
-              </label>
-              <textarea
-                className="bg-slate-100/80 p-1"
-                placeholder="Vienna, Garibaldi, Early Modern, .."
-                value={tag}
-                onChange={(e) => {
-                  setTag(e.target.value);
-                }}
-                type="text"
-                name="tag"
-              />
-            </div>
-          </motion.div>
-
-          <button
-            className="bg-teal-400 text-slate-100 p-4 my-4 text-4xl font-bold"
-            type="submit"
-            onClick={() => 
-              window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
-            }
-          >
-            Create event
-          </button>
+          {tag ? (
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              variants={{
+                visible: { opacity: 1 },
+                hidden: { opacity: 0 },
+              }}
+              className="flex w-full justify-center items-center"
+            >
+              <button
+                className="bg-teal-400 hover:bg-teal-300 text-slate-100 p-4 my-4 text-4xl font-bold"
+                type="submit"
+              >
+                Create event
+              </button>
+            </motion.div>
+          ) : null}
         </div>
       </motion.form>
 

@@ -4,10 +4,11 @@ const Footer = () => {
   return (
     <div
       className="shadow-md flex flex-col text-center
-    gap-4 bg-slate-600/60 py-4 text-2xl p-3
+    gap-4 bg-slate-600/60 py-4 text-xl p-3 
     justify-center items-center text-slate-100"
     >
       <span>made by francisGolden</span>
+      
       <div className="flex gap-4">
         <a
           target="_blank"

@@ -194,8 +194,8 @@ const FlashCard = () => {
       exit={{ opacity: 0, x: -100 }}
       transition={{ type: "spring", duration: 0.3 }}
       className="flex flex-col justify-center 
-        bg-cardsharps bg-no-repeat bg-slate-300
-        bg-cover p-3 bg-blend-soft-light
+       bg-slate-300
+         p-3
         items-center flex-1 text-2xl gap-2"
     >
       <div
@@ -224,9 +224,9 @@ const FlashCard = () => {
         <div
           style={playing ? { display: `flex` } : { display: "grid" }}
           className={`grid ${gridCustom()} flex-col overflow-scroll 
-          scrollbar-hide w-full gap-2 md:gap-0
-          bg-transparent
-          h-full
+          scrollbar-hide w-full h-full
+          bg-transparent gap-2
+          
           justify-center items-start`}
           //   style={
           //     cardBackground ? { backgroundImage: `url(${cardBackground})` } : {}
@@ -263,7 +263,7 @@ const FlashCard = () => {
                     onClick={selectCard}
                     className="flex items-center justify-center 
                                 hover:bg-blue-200/70 w-screen
-                                 md:w-full min-h-[200px]
+                                 md:w-full min-h-[200px] cursor-pointer
                                 bg-slate-200/80 hover:animate-pulse 
                                 bg-blend-soft-light bg-cover bg-center"
                     key={note.id}
@@ -275,7 +275,7 @@ const FlashCard = () => {
                     <p
                       onClick={selectCard}
                       id={note.id}
-                      className="font-bold text-3xl"
+                      className="font-bold text-3xl cursor-pointer"
                     >
                       {note.event}
                     </p>

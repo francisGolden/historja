@@ -1,9 +1,7 @@
 import { UserAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
-import { GiCardExchange } from "react-icons/gi";
-import { IoIosLogIn, IoMdAlbums, IoIosCreate } from "react-icons/io";
+import { IoIosLogOut } from "react-icons/io";
 
 const NavBar = () => {
   // I gather the nav boolean from the AuthContext
@@ -15,10 +13,10 @@ const NavBar = () => {
 
   const handleLogout = async () => {
     try {
-      let msg = user.email;
+      
       await logout();
       navigate("/");
-    } catch (e) {}
+    } catch (e) {console.log(e)}
   };
 
   // Only show the nav if the user is logged in
@@ -37,7 +35,7 @@ const NavBar = () => {
               to="/notes"
             >
               My events
-              <IoMdAlbums color="white" size={28} />
+              
             </Link>
           </button>
 
@@ -48,7 +46,7 @@ const NavBar = () => {
               to="/new"
             >
               Create
-              <IoIosCreate color="white" size={28} />
+              
             </Link>
           </button>
 
@@ -68,7 +66,7 @@ const NavBar = () => {
               to="/flash"
             >
               Flash cards
-              <GiCardExchange color="rgb(253 224 71)" size={28} />
+              
             </Link>
           </button>
         </div>
@@ -95,7 +93,7 @@ const NavBar = () => {
             className="flex items-center h-[60px] leading-none md:h-[60px] hover:bg-slate-100 bg-slate-200 p-2 gap-1 
             rounded"
           >
-            <IoIosLogIn size={28} onClick={handleLogout} />
+            <IoIosLogOut size={28} onClick={() => handleLogout()} />
           </button>
         </div>
       </div>

@@ -12,7 +12,7 @@ const About = () => {
       items-center justify-start 
       gap-5 p-4
       text-2xl
-      bg-trafalgar bg-cover bg-blend-soft-light bg-slate-300"
+      bg-slate-300"
     >
       <div className="flex flex-col gap-5 w-full lg:w-1/2">
         <section className="flex flex-col gap-2 mb-6 mt-6">

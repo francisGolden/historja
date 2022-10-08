@@ -37,6 +37,7 @@ const EditForm = ({
   const [libraries] = useState(["places"]);
 
   const [address, setAddress] = useState("");
+  const TextareaAutosize = require("react-textarea-autosize").default;
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_app_googleMapsApiKey,
@@ -61,12 +62,15 @@ const EditForm = ({
           <label className="font-bold" htmlFor="event">
             Event
           </label>
-          <textarea
+          <TextareaAutosize
+            minRows={1}
+            maxRows={4}
             className="bg-slate-100/80 p-1"
             type="text"
             value={newEvent}
             onChange={(e) => setNewEvent(e.target.value)}
             name="event"
+            required
           />
         </div>
       </div>
@@ -109,7 +113,9 @@ const EditForm = ({
           <label className="font-bold" htmlFor="why">
             Why
           </label>
-          <textarea
+          <TextareaAutosize
+            minRows={1}
+            maxRows={4}
             className="bg-slate-100/80 p-1"
             type="text"
             value={newWhy}
@@ -122,7 +128,9 @@ const EditForm = ({
           <label className="font-bold" htmlFor="who">
             Who
           </label>
-          <textarea
+          <TextareaAutosize
+            minRows={1}
+            maxRows={4}
             className="bg-slate-100/80 p-1"
             type="text"
             value={newWho}
@@ -138,7 +146,9 @@ const EditForm = ({
           <label className="font-bold" htmlFor="beginning">
             Beginning
           </label>
-          <textarea
+          <TextareaAutosize
+            minRows={1}
+            maxRows={4}
             className="bg-slate-100/80 p-1"
             type="text"
             value={newBeginning}
@@ -151,7 +161,9 @@ const EditForm = ({
           <label className="font-bold" htmlFor="unfold">
             Unfold
           </label>
-          <textarea
+          <TextareaAutosize
+            minRows={1}
+            maxRows={4}
             className="bg-slate-100/80 p-1"
             type="text"
             value={newUnfold}
@@ -164,7 +176,9 @@ const EditForm = ({
           <label className="font-bold" htmlFor="end">
             End
           </label>
-          <textarea
+          <TextareaAutosize
+            minRows={1}
+            maxRows={4}
             className="bg-slate-100/80 p-1"
             type="text"
             value={newEnd}
@@ -180,7 +194,9 @@ const EditForm = ({
           <label className="font-bold" htmlFor="source">
             Source
           </label>
-          <textarea
+          <TextareaAutosize
+            minRows={1}
+            maxRows={4}
             className="bg-slate-100/80 p-1"
             type="text"
             value={newSource}
@@ -206,7 +222,9 @@ const EditForm = ({
           <label className="font-bold" htmlFor="tag">
             Tag
           </label>
-          <textarea
+          <TextareaAutosize
+            minRows={1}
+            maxRows={4}
             className="bg-slate-100/80 p-1"
             type="text"
             value={newTag}

@@ -315,10 +315,10 @@ const NoteList = () => {
 
   return (
     <motion.div
-      initial={{opacity: 0, x: 100}}
-      animate={{opacity: 1, x: 0}}
-      exit={{opacity: 0, x:-100}}
-      transition={{type: "spring", duration: 0.3}}
+      initial={{ opacity: 0, x: 100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -100 }}
+      transition={{ type: "spring", duration: 0.3 }}
       className="flex flex-col justify-start 
         p-3
         items-center flex-1 text-2xl bg-slate-300 gap-5"
@@ -435,7 +435,12 @@ const NoteList = () => {
                 key={note.id}
                 id={note.id}
               >
-                <p className="text-4xl font-bold">{note.event} </p>
+                <p
+                  className="text-4xl font-bold cursor-pointer"
+                  onClick={() => handleShowEvent(note.id)}
+                >
+                  {note.event}{" "}
+                </p>
                 <p>{note.when}</p>
                 {/* <ul className="flex gap-2 py-1">
                                     {Array.from(note.tag.toLowerCase().split(",")).map((t, index) => {

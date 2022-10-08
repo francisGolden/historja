@@ -199,9 +199,9 @@ const FlashCard = () => {
         items-center flex-1 text-2xl gap-2"
     >
       <div
-        className="flex flex-col text-center
+        className="flex flex-col text-center flex-1
             justify-start items-center lg:w-1/2 w-full
-            h-full"
+            "
       >
         {playing === false && notes.length !== 0 ? (
           <div>

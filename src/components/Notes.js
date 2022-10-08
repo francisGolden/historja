@@ -203,7 +203,8 @@ const Notes = () => {
               <TextareaAutosize
                     minRows={1}
                     maxRows={4}
-                className="bg-transparent font-bold overflow-y scrollbar-hide  w-full py-4 
+                className="bg-transparent font-bold overflow-y scrollbar-hide
+                  w-full py-4 
             focus:outline-none"
                 placeholder="Name of the event"
                 value={event}
@@ -390,7 +391,7 @@ const Notes = () => {
                   className="flex gap-2 justify-start items-center w-full 
                   border-b-2 border-slate-500"
                 >
-                  <p>🪪</p>
+                  <p>🎬</p>
                   <TextareaAutosize
                     minRows={1}
                     maxRows={4}
@@ -572,7 +573,7 @@ const Notes = () => {
                   className="flex gap-2 justify-start items-center w-full 
                   border-b-2 border-slate-500"
                 >
-                  <p>🖼</p>
+                  <p>🏷</p>
                   <input
                     className="bg-transparent focus:outline-none overflow-hidden w-full h-[50px] md:text-3xl py-2"
                     placeholder="Tag1, Tag2, ..."

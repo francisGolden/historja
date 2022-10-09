@@ -357,7 +357,7 @@ const NoteList = () => {
 
         <label className="flex justify-center items-center gap-1">
           <div>Hide Event List</div>
-          <Switch onChange={handleToggle} checked={checked} />
+          <Switch onChange={handleToggle} checked={checked} className="z-2" />
         </label>
       </div>
 

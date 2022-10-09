@@ -195,7 +195,7 @@ const About = () => {
             <b>APIs</b>: Maps Javascript API, Geocoding API, Places API
           </span>
           <span>
-            <b>Packages</b>: react-switch, sort-array, react-router-dom,
+            <b>Packages</b>: framer-motion, react-switch, sort-array, react-router-dom,
             @react-google-maps/api, firebase, react-icons,
             react-places-autocomplete, react-vertical-timeline-component
           </span>

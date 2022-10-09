@@ -2,13 +2,10 @@
 import { db } from "../firebase";
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
-import { useContext } from "react";
-import { NoteContext } from "../context/NoteContext";
 import Autocomplete from "./Autocomplete";
-import { useNavigate } from "react-router-dom";
 
 import { UserAuth } from "../context/AuthContext";
-import { BsFillArrowDownCircleFill } from "react-icons/bs";
+
 import { useLoadScript } from "@react-google-maps/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -136,17 +133,7 @@ const Notes = () => {
     libraries,
   });
 
-  const handleShowCreateEvent = () => {
-    setShowCreateEvent(!showCreateEvent);
-  };
-
-  // const handleShowCreateChar = () => {
-  //   setShowCreateChar(!showCreateChar);
-  // };
-
   const notify = (event) => toast(`${event} created!`);
-
-  const inputStyle = "";
 
   return (
     <motion.div
@@ -164,22 +151,6 @@ const Notes = () => {
         hideProgressBar={true}
         theme="dark"
       />
-
-      <div className=" text-7xl font-bold mt-4 mb-4">
-        {/* <div
-        className="p-4 bg-clip-text text-center 
-      text-transparent bg-gradient-to-r from-emerald-400 to-teal-600 "
-      >
-        <h1>Create a new event</h1>
-      </div> */}
-      </div>
-
-      {/* {(!showCreateEvent) ? (<button onClick={handleShowCreateChar}
-              className="text-6xl hover:bg-slate-100/70 my-10 
-              bg-slate-100 p-4  text-center">
-              Create a new <b>person</b>
-          </button>)
-              : null} */}
 
       <motion.form
         initial={{ opacity: 0 }}
@@ -201,8 +172,8 @@ const Notes = () => {
             >
               <p className="flex justify-center items-center">✍</p>
               <TextareaAutosize
-                    minRows={1}
-                    maxRows={4}
+                minRows={1}
+                maxRows={4}
                 className="bg-transparent font-bold overflow-y resize-none scrollbar-hide
                   w-full py-4 
             focus:outline-none"
@@ -276,9 +247,9 @@ const Notes = () => {
                   className="flex gap-2 justify-start items-center w-full 
                   border-b-2 border-slate-500"
                 >
-                  <p>📆</p>
-                  <input
-                    className="bg-transparent focus:outline-none overflow-hidden w-full h-[50px] md:text-3xl py-2"
+                  <p>⌛</p>
+                  <TextareaAutosize
+                    className="bg-transparent focus:outline-none resize-none overflow-hidden w-full h-[50px] md:text-3xl py-2"
                     placeholder="When did the event take place? (1492, -230)"
                     value={when}
                     required

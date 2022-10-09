@@ -6,6 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose } from "react-icons/gr";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 const NavBar = () => {
   // I gather the nav boolean from the AuthContext
@@ -120,13 +121,13 @@ const NavBar = () => {
       <AnimatePresence>
         {isBurger ? (
           <motion.div
-            initial={{ x: -100 }}
-            animate={{ x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
+            initial={{ x: -100, borderRadius: "0% 50% 50% 0%" }}
+            animate={{ x: 0, borderRadius: 0 }}
+            exit={{ x: -400 }}
             key={"burger"}
-            transition={{ type: "spring", duration: 0.7 }}
-            className="grid grid-cols-1 grid-rows-3 text-4xl w-full justify-center 
-      overflow-hidden scrollbar-hide h-full fixed bg-slate-200 z-10 gap-2"
+            transition={{ type: "spring", duration: 0.7, bounce: 0.25 }}
+            className="grid grid-cols-1 grid-rows-3 text-4xl w-full z-10 justify-center 
+      overflow-hidden scrollbar-hide h-full fixed bg-slate-200 gap-2"
           >
             <div className="flex justify-end items-start p-4">
               <button onClick={() => setBurger(!isBurger)}>
@@ -148,7 +149,7 @@ const NavBar = () => {
 
               <button className="">
                 <Link
-                  className="flex items-center h-[60px] md:h-[60px] hover:bg-slate-100 bg-slate-200 p-2 gap-1 
+                  className="flex items-center h-[60px] md:h-[60px] bg-slate-200 p-2 gap-1 
             rounded"
                   to="/new"
                   onClick={() => setBurger(!isBurger)}
@@ -168,7 +169,7 @@ const NavBar = () => {
 
               <button className="">
                 <Link
-                  className="flex items-center h-[60px] leading-none md:h-[60px] hover:bg-slate-100 bg-slate-200 p-2 gap-1 
+                  className="flex items-center h-[60px] leading-none md:h-[60px] bg-slate-200 p-2 gap-1 
             rounded"
                   to="/flash"
                   onClick={() => setBurger(!isBurger)}
@@ -178,7 +179,7 @@ const NavBar = () => {
               </button>
               <button className="">
                 <Link
-                  className="flex items-center h-[60px] leading-none md:h-[60px] hover:bg-slate-100 bg-slate-200 p-2 gap-1 
+                  className="flex items-center h-[60px] leading-none md:h-[60px] bg-slate-200 p-2 gap-1 
             rounded"
                   to="/about"
                   onClick={() => setBurger(!isBurger)}
@@ -188,7 +189,7 @@ const NavBar = () => {
               </button>
               <button className="">
                 <Link
-                  className="flex items-center h-[60px] leading-none md:h-[60px] hover:bg-slate-100 bg-slate-200 p-2 gap-1 
+                  className="flex items-center h-[60px] leading-none md:h-[60px] bg-slate-200 p-2 gap-1 
             rounded"
                   to="/account"
                   onClick={() => setBurger(!isBurger)}
@@ -198,7 +199,7 @@ const NavBar = () => {
               </button>
               <button
                 onClick={() => handleLogout()}
-                className="flex items-center h-[60px] text-red-500 leading-none md:h-[60px] hover:bg-slate-100 bg-slate-200 p-2 gap-1 
+                className="flex items-center h-[60px] text-red-500 leading-none md:h-[60px] bg-slate-200 p-2 gap-1 
             rounded"
               >
                 Logout

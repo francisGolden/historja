@@ -26,6 +26,8 @@ const Autocomplete = ({
       .catch((error) => console.log("error"));
   };
 
+  const TextareaAutosize = require("react-textarea-autosize").default;
+
   return (
     <div className="flex w-full">
       {!isLoaded ? (
@@ -45,13 +47,16 @@ const Autocomplete = ({
             }) => {
               return (
                 <div className="flex flex-col w-full text-2xl">
-                  <div className="flex gap-2 justify-start items-center 
-                  border-b-2 border-slate-500 ">
-                    <p>🧭</p>
-                    <input
+                  <div
+                    className="flex gap-2 justify-start items-center 
+                  border-b-2 border-slate-500 "
+                  >
+                    <p>🌍</p>
+                    <TextareaAutosize
                       value={where}
-                      className="bg-transparent placeholder:truncate 
-                                text-ellipsis focus:outline-none overflow-hidden  h-[50px] md:text-3xl py-2 
+                      className="bg-transparent font-bold overflow-y resize-none scrollbar-hide
+                      w-full py-4 
+                focus:outline-none
                                 "
                       {...getInputProps({
                         placeholder: "Current location?",

@@ -203,7 +203,7 @@ const Notes = () => {
               <TextareaAutosize
                     minRows={1}
                     maxRows={4}
-                className="bg-transparent font-bold overflow-y scrollbar-hide
+                className="bg-transparent font-bold overflow-y resize-none scrollbar-hide
                   w-full py-4 
             focus:outline-none"
                 placeholder="Name of the event"

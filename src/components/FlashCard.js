@@ -257,10 +257,18 @@ const FlashCard = () => {
           ) : null}
 
           {playing === false
-            ? notes.map((note) => {
+            ? notes.map((note, i) => {
                 return (
                   <motion.div
                     onClick={selectCard}
+                    initial={{ opacity: 0, translateX: i % 2 === 0 ? -50 : 50,
+                      translateY: -50 }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                      translateX: 0, translateY: 0
+                    }}
+                    transition={{ delay: i * 0.2 }}
                     className="flex items-center justify-center 
                                 hover:bg-blue-200/70 w-screen
                                  md:w-full min-h-[200px] cursor-pointer

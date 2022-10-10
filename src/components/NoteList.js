@@ -18,7 +18,7 @@ import EditForm from "./EditForm";
 import sortArray from "sort-array";
 import Timeline from "./Timeline";
 import Switch from "react-switch";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const NoteList = () => {
   const { notes, setNotes, loading } = useContext(NoteContext);
@@ -420,14 +420,17 @@ const NoteList = () => {
           }}
           className="flex flex-col w-full lg:w-1/2 gap-2 "
         >
-          {filtrd.map((note) => {
+          {filtrd.map((note, i) => {
             return (
               <motion.div
                 whileHover={{ y: -2, zIndex: 1 }}
+                initial={{opacity: 0, scale: 1.2}}
+                animate={{opacity: 1, scale: 1}}
                 transition={{
                   type: "spring",
                   zIndex: 100,
                   duration: 0.4,
+                  delay: i*0.2
                 }}
                 className="flex flex-col
                         p-6 bg-slate-200/80 bg-blend-soft-light bg-cover bg-center shadow-sm"

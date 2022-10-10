@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { UserAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import x from "uniqid";
 
 const MobileNavBar = () => {
   const [isBurger, setBurger] = useState(false);
@@ -22,6 +23,15 @@ const MobileNavBar = () => {
       console.log(e);
     }
   };
+
+  const buttons = [
+    { id: 1, toPath: "/notes", content: "Events" },
+    { id: 2, toPath: "/new", content: "Create" },
+    { id: 3, toPath: "/flash", content: "Flash cards" },
+    { id: 4, toPath: "/about", content: "About" },
+    { id: 5, toPath: "/account", content: "My Account" },
+    { id: 6, toPath: "/logout", content: "Logout" },
+  ];
 
   if (nav === true && user.emailVerified)
     return (
@@ -48,74 +58,22 @@ const MobileNavBar = () => {
             </div>
 
             <div className="flex flex-col gap-6 w-full p-4 font-bold justify-center items-center">
-              <button className="">
-                <Link
-                  className="flex items-center h-[60px] md:h-[60px]  bg-slate-200 p-2 leading-none
+              {buttons.map((button, i) => (
+                <motion.button key={button.id}
+                initial={{opacity: 0, x: "-100%"}}
+                animate={{opacity: 1, x: 0}}
+                exit={{x: "-100%"}}
+                transition={{delay: 0.05*i, type: "spring", bounce: 0}}>
+                  <Link
+                    className="flex items-center h-[60px] md:h-[60px]  bg-slate-200 p-2 leading-none
                 rounded"
-                  to="/notes"
-                  onClick={() => setBurger(!isBurger)}
-                >
-                  Events
-                </Link>
-              </button>
-
-              <button className="">
-                <Link
-                  className="flex items-center h-[60px] md:h-[60px] bg-slate-200 p-2 gap-1 
-                rounded"
-                  to="/new"
-                  onClick={() => setBurger(!isBurger)}
-                >
-                  Create
-                </Link>
-              </button>
-
-              {/* <button>
-                            <Link 
-                            className="flex items-center gap-1" 
-                            to="/edit">
-                                Edit event
-                                <IoIosCreate color="white" size={28}/>
-                            </Link>
-                        </button> */}
-
-              <button className="">
-                <Link
-                  className="flex items-center h-[60px] leading-none md:h-[60px] bg-slate-200 p-2 gap-1 
-                rounded"
-                  to="/flash"
-                  onClick={() => setBurger(!isBurger)}
-                >
-                  Flash cards
-                </Link>
-              </button>
-              <button className="">
-                <Link
-                  className="flex items-center h-[60px] leading-none md:h-[60px] bg-slate-200 p-2 gap-1 
-                rounded"
-                  to="/about"
-                  onClick={() => setBurger(!isBurger)}
-                >
-                  About this app
-                </Link>
-              </button>
-              <button className="">
-                <Link
-                  className="flex items-center h-[60px] leading-none md:h-[60px] bg-slate-200 p-2 gap-1 
-                rounded"
-                  to="/account"
-                  onClick={() => setBurger(!isBurger)}
-                >
-                  My Account
-                </Link>
-              </button>
-              <button
-                onClick={() => handleLogout()}
-                className="flex items-center h-[60px] text-red-500 leading-none md:h-[60px] bg-slate-200 p-2 gap-1 
-                rounded"
-              >
-                Logout
-              </button>
+                    to={button.toPath}
+                    onClick={() => setBurger(!isBurger)}
+                  >
+                    {button.content}
+                  </Link>
+                </motion.button>
+              ))}
             </div>
           </motion.div>
         ) : null}

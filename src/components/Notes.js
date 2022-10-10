@@ -250,7 +250,7 @@ const Notes = () => {
                   <p>⌛</p>
                   <TextareaAutosize
                     className="bg-transparent focus:outline-none resize-none overflow-hidden w-full h-[50px] md:text-3xl py-2"
-                    placeholder="When did the event take place? (1492, -230)"
+                    placeholder="When did the event take place?"
                     value={when}
                     required
                     onChange={(e) => {

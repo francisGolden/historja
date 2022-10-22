@@ -5,24 +5,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { UserAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import x from "uniqid";
 
 const MobileNavBar = () => {
   const [isBurger, setBurger] = useState(false);
 
   // logout logic
-  const { user, logout } = UserAuth();
-  const navigate = useNavigate();
-  const { nav } = UserAuth();
-  const handleLogout = async () => {
-    try {
-      await logout();
-      navigate("/");
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const { user, nav } = UserAuth();
 
   const buttons = [
     { id: 1, toPath: "/notes", content: "Events" },
@@ -30,7 +18,7 @@ const MobileNavBar = () => {
     { id: 3, toPath: "/flash", content: "Flash cards" },
     { id: 4, toPath: "/about", content: "About" },
     { id: 5, toPath: "/account", content: "My Account" },
-    { id: 6, toPath: "/logout", content: "Logout" },
+    
   ];
 
   if (nav === true && user.emailVerified)

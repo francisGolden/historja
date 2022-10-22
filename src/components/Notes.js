@@ -186,6 +186,7 @@ const Notes = () => {
                 type="text"
                 name="event"
                 autoFocus={true}
+                data-cy="event"
               />
             </div>
           </section>
@@ -227,6 +228,7 @@ const Notes = () => {
                   coords={coords}
                   setCoords={setCoords}
                   isLoaded={isLoaded}
+                  
                 />
               </motion.div>
             ) : null}
@@ -258,6 +260,7 @@ const Notes = () => {
                     }}
                     type="number"
                     name="when"
+                    data-cy="when"
                   />
                 </div>
               </motion.div>
@@ -286,6 +289,7 @@ const Notes = () => {
                     className="bg-transparent  focus:outline-none resize-none overflow-y scrollbar-hide w-full h-[50px] md:text-3xl py-2"
                     placeholder="Why did the event happen?"
                     value={why}
+                    data-cy="why"
                     required
                     onChange={(e) => {
                       setWhy(e.target.value);
@@ -322,6 +326,7 @@ const Notes = () => {
                     overflow-y scrollbar-hide w-full h-[50px] md:text-3xl py-2"
                     placeholder="Who was involved in this event?"
                     value={who}
+                    data-cy="who"
                     required
                     onChange={(e) => {
                       setWho(e.target.value);
@@ -371,6 +376,7 @@ const Notes = () => {
                   overflow-y scrollbar-hide w-full h-[50px] md:text-3xl py-2"
                     placeholder="How did it start?"
                     value={beginning}
+                    data-cy="beginning"
                     required
                     onChange={(e) => {
                       setBeginning(e.target.value);
@@ -411,6 +417,7 @@ const Notes = () => {
                     }}
                     type="text"
                     name="unfold"
+                    data-cy="unfold"
                   />
                 </div>
               </motion.div>
@@ -445,6 +452,7 @@ const Notes = () => {
                     }}
                     type="text"
                     name="end"
+                    data-cy="end"
                   />
                 </div>
               </motion.div>
@@ -486,6 +494,7 @@ const Notes = () => {
                     className="bg-transparent focus:outline-none overflow-y overflow-y scrollbar-hide resize-none w-full h-[50px] md:text-3xl py-2"
                     placeholder="What sources did you use for it?"
                     value={source}
+                    data-cy="source"
                     required
                     onChange={(e) => {
                       setSource(e.target.value);
@@ -514,7 +523,9 @@ const Notes = () => {
                   border-b-2 border-slate-500"
                 >
                   <p>🖼</p>
-                  <input
+                  <TextareaAutosize
+                    minRows={1}
+                    maxRows={4}
                     className="bg-transparent focus:outline-none overflow-hidden w-full h-[50px] md:text-3xl py-2"
                     placeholder="Image URL"
                     value={img}
@@ -522,6 +533,7 @@ const Notes = () => {
                       setImg(e.target.value);
                     }}
                     type="text"
+                    data-cy="img"
                     name="img"
                   />
                 </div>
@@ -545,7 +557,9 @@ const Notes = () => {
                   border-b-2 border-slate-500"
                 >
                   <p>🏷</p>
-                  <input
+                  <TextareaAutosize
+                    minRows={1}
+                    maxRows={4}
                     className="bg-transparent focus:outline-none overflow-hidden w-full h-[50px] md:text-3xl py-2"
                     placeholder="Tag1, Tag2, ..."
                     value={tag}
@@ -554,6 +568,7 @@ const Notes = () => {
                       setTag(e.target.value);
                     }}
                     type="text"
+                    data-cy="tag"
                     name="tag"
                   />
                 </div>
@@ -582,6 +597,7 @@ const Notes = () => {
             </motion.div>
           ) : null}
         </div>
+        
       </motion.form>
 
       {/* {(showCreateChar) ? (

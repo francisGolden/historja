@@ -54,6 +54,7 @@ const Autocomplete = ({
                     <p>🌍</p>
                     <TextareaAutosize
                       value={where}
+                      data-cy="where"
                       className="bg-transparent font-bold overflow-y resize-none scrollbar-hide
                       w-full py-4 
                 focus:outline-none

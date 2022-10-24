@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { UserAuth } from "../context/AuthContext";
+import { IoIosLogIn } from "react-icons/io";
 
 const SignIn = () => {
   const { signIn, user } = UserAuth();
@@ -36,12 +37,12 @@ const SignIn = () => {
         items-center justify-center 
         gap-5 p-3 
         text-2xl
-        bg-romano bg-cover bg-blend-soft-light bg-slate-300"
+        bg-peirson bg-cover bg-blend-soft-light bg-slate-300"
     >
-      <h1 className="text-5xl font-bold">Historja</h1>
+      <div className="flex justify-center items-center flex-1">
+        <h1 className="text-6xl font-bold">Login</h1>
+      </div>
 
-      <br />
-      <br />
       <form
         onSubmit={handleSubmit}
         className="flex flex-col justify-center bg-slate-100
@@ -52,7 +53,7 @@ const SignIn = () => {
             Email
           </label>
           <input
-            className="p-2 bg-transparent border-b-2 w-full focus:outline-none focus:border-b-slate-500"
+            className="p-2 bg-transparent text-center border-b-2 w-full focus:outline-none focus:border-b-slate-500"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -66,24 +67,26 @@ const SignIn = () => {
             Password
           </label>
           <input
-            className="p-2 bg-transparent border-b-2 w-full focus:outline-none focus:border-b-slate-500"
+            className="p-2 bg-transparent text-center border-b-2 w-full focus:outline-none focus:border-b-slate-500"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
             name="password"
             type="password"
+            
           />
         </div>
 
         <button
-          className="w-[fit-content] bg-green-300 
+          className="w-[fit-content] bg-green-300 flex justify-center items-center gap-2
         px-2 rounded py-1 hover:bg-green-500 drop-shadow"
         >
-          Sign in
+          <span>Sign in</span>
+          <IoIosLogIn />
         </button>
       </form>
 
-      <div className="flex justify-center items-center flex-col">
+      <div className="flex justify-center text-xl items-center flex-col">
         Forgot your password?
         <Link
           to="forgot-password"
@@ -93,7 +96,7 @@ const SignIn = () => {
         </Link>
       </div>
 
-      <div className="flex justify-center items-center flex-col">
+      <div className="flex justify-center text-xl items-center flex-col">
         Don't have an account?
         <Link
           to="signup"
@@ -102,6 +105,10 @@ const SignIn = () => {
           Sign up
         </Link>
       </div>
+      <p className="text-sm text-center">
+        Background image attribution <br></br>John Singleton Copley, Public
+        domain, through Wikimedia Commons
+      </p>
     </div>
   );
 };

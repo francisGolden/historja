@@ -433,7 +433,7 @@ const NoteList = () => {
                   delay: i*0.2
                 }}
                 className="flex flex-col
-                        p-6 bg-slate-200/80 bg-blend-soft-light bg-cover bg-center shadow-sm"
+                        p-6 bg-slate-200/80 bg-blend-soft-light bg-cover bg-center shadow-xl"
                 style={note.img ? { backgroundImage: `url(${note.img})` } : {}}
                 key={note.id}
                 id={note.id}

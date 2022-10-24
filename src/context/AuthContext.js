@@ -71,12 +71,10 @@ export const AuthContextProvider = ({ children }) => {
     try {
       await deleteUser(auth.currentUser);
     } catch (e) {
-      if (e) {
-        alert(
-          "In order to delete your account you must press Delete account right after your login"
-        );
-        logout();
-      }
+      alert(
+        "In order to delete your account you must press Delete account right after your login"
+      );
+      logout();
     }
   };
 

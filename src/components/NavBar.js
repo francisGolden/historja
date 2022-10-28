@@ -26,7 +26,7 @@ const NavBar = () => {
   // Show the desktop nav if the user is logged in and window is desktop size
   if (nav === true && user.emailVerified) {
     return (
-      <div
+      <nav
         className="shadow-md flex flex-col md:flex-row 
         md:gap-10 gap-3 bg-gray-400/40 py-4 text-xl font-bold p-3
         justify-between items-center text-gray-700"
@@ -71,6 +71,7 @@ const NavBar = () => {
             </Link>
           </button>
         </div>
+
         <div className="flex gap-3">
           <button>
             <Link
@@ -97,7 +98,7 @@ const NavBar = () => {
             <IoIosLogOut size={28} onClick={() => handleLogout()} />
           </button>
         </div>
-      </div>
+      </nav>
     );
   } else return null;
 };

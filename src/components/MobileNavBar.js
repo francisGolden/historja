@@ -25,12 +25,12 @@ const MobileNavBar = () => {
     return (
       <AnimatePresence>
         <div className="flex justify-start px-4 py-3 items-center w-full bg-transparent text-4xl">
-          <button>
+          <button aria-controls="menu">
             <GiHamburgerMenu onClick={() => setBurger(!isBurger)} />
           </button>
         </div>
         {isBurger ? (
-          <motion.div
+          <motion.nav
             initial={{ x: "-100%", borderRadius: "0% 50% 50% 0%" }}
             animate={{ x: 0, borderRadius: 0 }}
             exit={{ opacity: 0, x: "-100%" }}
@@ -63,7 +63,7 @@ const MobileNavBar = () => {
                 </motion.button>
               ))}
             </div>
-          </motion.div>
+          </motion.nav>
         ) : null}
       </AnimatePresence>
     );

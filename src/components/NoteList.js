@@ -18,7 +18,7 @@ import EditForm from "./EditForm";
 import sortArray from "sort-array";
 import Timeline from "./Timeline";
 import Switch from "react-switch";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const NoteList = () => {
   const { notes, setNotes, loading } = useContext(NoteContext);
